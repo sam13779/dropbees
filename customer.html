@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dropbees – Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Mulish:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --honey:#FFB81C; --honey-d:#E39B00; --ink:#2E2110; --sheet:#FFFFFF;
+  --field:#F6F3EC; --text:#2E2110; --muted:#7A6C58; --line:#E6DFD0;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--sheet:#211A0E;--field:#2E2514;--text:#F7EFDF;--muted:#B5A78E;--line:#3A2F1B}
+}
+:root[data-theme="dark"]{--sheet:#211A0E;--field:#2E2514;--text:#F7EFDF;--muted:#B5A78E;--line:#3A2F1B}
+*,*::before,*::after{box-sizing:inherit}
+html{margin:0}body{margin:0;min-height:100vh;min-height:100dvh}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--honey);color:var(--text);font-family:'Mulish','Noto Sans Devanagari',system-ui,-apple-system,'Segoe UI',sans-serif;display:flex;justify-content:center}
+.app{width:100%;max-width:440px;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;background:var(--honey);position:relative;overflow-x:clip}
+.hero{flex:0 0 auto;padding:44px 28px 56px;color:var(--ink);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'%3E%3Cpath d='M28 2l26 15v30L28 62 2 47V17zM28 95L2 80V50M54 50v30L28 95' fill='none' stroke='%23E39B00' stroke-opacity='.35' stroke-width='1.5'/%3E%3C/svg%3E");}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{width:48px;height:52px;flex:none}
+.wordmark{font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:34px;line-height:1;letter-spacing:-.5px;margin:0}
+.tag{font-family:'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif;font-weight:600;font-size:26px;line-height:1.2;margin:28px 0 6px}
+.sub{margin:0;font-size:15px;font-weight:600;opacity:.8}
+.sheet{flex:1;background:var(--sheet);border-radius:28px 28px 0 0;margin-top:-28px;padding:28px 24px 24px;display:flex;flex-direction:column;gap:18px;position:relative}
+h2{font-family:'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif;font-size:22px;margin:0;font-weight:800;color:var(--text)}
+p.help{margin:-8px 0 0;color:var(--muted);font-size:14px}
+.btn{height:54px;border:0;border-radius:14px;background:var(--honey);color:var(--ink);font:800 17px 'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif;cursor:pointer;transition:background .15s,transform .1s}
+.btn:hover{background:var(--honey-d)} .btn:active{transform:scale(.98)}
+.gbtn{height:56px;border-radius:14px;background:#fff;color:#3c4043;border:1px solid #dadce0;display:flex;align-items:center;justify-content:center;gap:12px;font:700 16px 'Mulish','Noto Sans Devanagari',system-ui,sans-serif;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.gbtn:hover{box-shadow:0 1px 4px rgba(60,64,67,.3)} .gbtn:active{transform:scale(.98)}
+.gbtn svg{width:22px;height:22px;flex:none}
+.gbtn[disabled]{opacity:.7;cursor:wait}
+.btn:focus-visible,.link:focus-visible,.gbtn:focus-visible,.lang:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn:focus-visible,:root:not([data-theme="light"]) .link:focus-visible,:root:not([data-theme="light"]) .gbtn:focus-visible,:root:not([data-theme="light"]) .lang:focus-visible{outline-color:var(--honey)}}
+.link{background:none;border:0;padding:0;font:700 14px 'Mulish','Noto Sans Devanagari',system-ui,sans-serif;color:var(--muted);cursor:pointer;text-align:left;text-decoration:underline}
+.areas{display:flex;flex-wrap:wrap;gap:8px}
+.areas span{font-size:12.5px;font-weight:700;padding:6px 11px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.where{font-size:13px;color:var(--muted);margin:0;font-weight:600}
+.fine{margin-top:auto;font-size:12px;color:var(--muted);text-align:center;line-height:1.5}
+.demo{font-size:12px;color:var(--muted);text-align:center;margin:-6px 0 0}
+.step{display:none;flex-direction:column;gap:18px}
+.step.on{display:flex}
+.done{align-items:center;text-align:center;padding-top:12px}
+.done svg{width:84px;height:84px}
+.langs{display:flex;flex-direction:column;gap:12px}
+.lang{display:flex;align-items:center;justify-content:space-between;height:62px;padding:0 18px;border-radius:14px;background:var(--field);border:2px solid transparent;color:var(--text);font:800 20px 'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif;cursor:pointer;text-align:left}
+.lang small{font:600 13px 'Mulish',system-ui,sans-serif;color:var(--muted)}
+.lang[aria-checked="true"]{border-color:var(--honey);background:color-mix(in srgb,var(--honey) 18%,var(--field))}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.home-mode .l-only{display:none}
+.h-only{display:none}
+.home-mode .h-only{display:block}
+.home-mode .hero{padding:28px 24px 44px}
+.hhead{font-family:'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif;font-weight:800;font-size:24px;line-height:1.2;margin:18px 0 0}
+.toprow{display:flex;align-items:center;justify-content:space-between}
+.toprow .link{color:var(--ink);opacity:.8}
+.route{position:relative;display:flex;flex-direction:column;gap:14px;padding-left:26px}
+.route::before{content:"";position:absolute;left:7px;top:14px;bottom:14px;border-left:2px dashed var(--line)}
+.leg{position:relative;display:flex;flex-direction:column;gap:8px}
+.leg::before{content:"";position:absolute;left:-26px;top:3px;width:16px;height:16px;border-radius:50%;background:var(--honey);border:4px solid var(--sheet);box-shadow:0 0 0 2px var(--honey)}
+.leg.drop::before{border-radius:3px;background:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .leg.drop::before{background:var(--text);box-shadow:0 0 0 2px var(--text)}}
+.leg h3{margin:0;font:800 15px 'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif;color:var(--text)}
+.in{width:100%;height:48px;border:2px solid transparent;border-radius:12px;background:var(--field);color:var(--text);font:600 15px 'Mulish','Noto Sans Devanagari',system-ui,sans-serif;padding:0 12px;outline:none;appearance:none;-webkit-appearance:none}
+select.in{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%237A6C58' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.in:focus{border-color:var(--honey)}
+.in::placeholder{color:var(--muted)}
+.vehs{display:flex;flex-direction:column;gap:10px}
+.veh{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-radius:14px;background:var(--field);border:2px solid transparent;color:var(--text);cursor:pointer;text-align:left;font:inherit}
+.veh b{display:block;font:800 17px 'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif}
+.veh small{color:var(--muted);font-size:12.5px;font-weight:600}
+.veh .pr{font:800 18px 'Baloo 2',system-ui,sans-serif;white-space:nowrap}
+.veh .pr.na{font-size:12px;font-weight:600;color:var(--muted);white-space:normal;text-align:right;max-width:110px}
+.veh[aria-checked="true"]{border-color:var(--honey);background:color-mix(in srgb,var(--honey) 18%,var(--field))}
+.veh:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .veh:focus-visible{outline-color:var(--honey)}}
+.err{color:#C0392B;font-size:13px;font-weight:700;min-height:16px;margin:-6px 0 -6px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .err{color:#FF7A6B}}
+.fare{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:700}
+.fare small{display:block;color:var(--muted);font-weight:600;font-size:12px}
+.fare strong{font:800 24px 'Baloo 2',system-ui,sans-serif}
+.sum{width:100%;display:flex;flex-direction:column;gap:10px;text-align:left;background:var(--field);border-radius:14px;padding:14px 16px}
+.sum div{display:flex;justify-content:space-between;gap:16px;font-size:14px}
+.sum dt{color:var(--muted);font-weight:600}
+.sum dd{margin:0;font-weight:700;text-align:right}
+.bid{font:800 22px 'Baloo 2',system-ui,sans-serif;letter-spacing:1px}
+
+.tabs{display:none;position:sticky;bottom:0;background:var(--sheet);border-top:1px solid var(--line);padding:6px 8px;z-index:5}
+.has-nav .tabs{display:flex}
+.tabs button{flex:1;background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;color:var(--muted);font:700 11.5px 'Mulish','Noto Sans Devanagari',system-ui,sans-serif;cursor:pointer}
+.tabs svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tabs button[aria-current="true"]{color:var(--text)}
+.tabs [aria-current="true"] svg{stroke:var(--honey-d)}
+.tabs button:focus-visible{outline:3px solid var(--honey-d);outline-offset:-3px;border-radius:10px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips:empty{display:none}
+.chips button{border:1px solid var(--line);background:none;color:var(--text);border-radius:99px;padding:5px 12px;font:700 12.5px 'Mulish','Noto Sans Devanagari',system-ui,sans-serif;cursor:pointer}
+.bk{background:var(--field);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.bk .top{display:flex;justify-content:space-between;align-items:center}
+.chip{font-size:12px;font-weight:800;padding:3px 10px;border-radius:99px;background:var(--honey);color:var(--ink)}
+.chip.x{background:var(--line);color:var(--muted)}
+.bk .r{font-size:15px;font-weight:800}
+.bk .m{font-size:12.5px;color:var(--muted);font-weight:600}
+.bk .acts{display:flex;gap:18px;margin-top:4px}
+.blist{display:flex;flex-direction:column;gap:12px}
+.empty{display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;padding:24px 0}
+.avatar{width:68px;height:68px;border-radius:50%;background:var(--honey);color:var(--ink);display:flex;align-items:center;justify-content:center;font:800 30px 'Baloo 2',system-ui,sans-serif;align-self:center}
+.lbl{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:-10px}
+.grp{display:flex;flex-direction:column;gap:8px}
+.grp h3{margin:6px 0 0;font:800 15px 'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif}
+.in[readonly]{opacity:.7}
+.err.ok{color:#2E8B4F}
+details{background:var(--field);border-radius:12px;padding:12px 14px}
+summary{font-weight:700;cursor:pointer;font-size:14px}
+details p{margin:8px 0 0;font-size:13.5px;color:var(--muted)}
+.in.ta{height:auto;min-height:96px;padding:12px;line-height:1.45;resize:vertical;font-family:inherit}
+.bk .m,.sum dd{white-space:pre-line}
+.chips button{font-weight:800}
+.notice{display:flex;gap:12px;align-items:flex-start;background:color-mix(in srgb,var(--honey) 22%,var(--sheet));border:1.5px solid var(--honey);border-radius:14px;padding:12px 14px;color:var(--text)}
+.notice[hidden]{display:none}
+.notice.warn{border-color:#E4572E;background:color-mix(in srgb,#E4572E 12%,var(--sheet))}
+.notice b{display:block;font:800 15px 'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif}
+.notice p{margin:2px 0 0;font-size:13.5px;line-height:1.45;white-space:pre-line}
+.notice button{margin-left:auto;background:none;border:0;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;padding:0 2px}
+.notice button:focus-visible{outline:3px solid var(--honey-d);outline-offset:2px}
+.toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:#2E2110;color:#fff;padding:10px 16px;border-radius:12px;font:700 13px 'Mulish','Noto Sans Devanagari',system-ui,sans-serif;z-index:30;max-width:90%;text-align:center}
+.toast[hidden]{display:none}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="hero">
+    <div class="brand toprow-wrap">
+      <svg viewBox="0 0 48 52" aria-hidden="true"><path d="M24 2l20 12v24L24 50 4 38V14z" fill="#2E2110"/><path d="M24 12c5 7 8 11 8 16a8 8 0 0 1-16 0c0-5 3-9 8-16z" fill="#FFB81C"/></svg>
+      <h1 class="wordmark">dropbees</h1>
+    </div>
+    <p class="tag l-only" data-i="tag"></p>
+    <p class="sub l-only" data-i="sub"></p>
+    <p class="hhead h-only" id="hh"></p>
+  </header>
+
+  <section class="sheet">
+    <div class="step on" id="s-lang">
+      <h2 data-i="langT"></h2>
+      <p class="help" data-i="langH"></p>
+      <div class="langs" role="radiogroup" aria-label="Language">
+        <button class="lang" role="radio" aria-checked="true" data-l="en">English <small>English</small></button>
+        <button class="lang" role="radio" aria-checked="false" data-l="hi">हिंदी <small>Hindi</small></button>
+        <button class="lang" role="radio" aria-checked="false" data-l="mr">मराठी <small>Marathi</small></button>
+      </div>
+      <button class="btn" id="cont" data-i="cont"></button>
+    </div>
+
+    <div class="step" id="s-login">
+      <h2 data-i="loginT"></h2>
+      <p class="help" data-i="help1"></p>
+      <button class="gbtn" id="google">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.5 28.7a14.5 14.5 0 0 1 0-9.4l-7.9-6.1a24 24 0 0 0 0 21.6l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.9 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>
+        <span id="gtxt"></span>
+      </button>
+      <p class="demo" data-i="demo"></p>
+      <p class="where" data-i="where"></p>
+      <div class="areas"><span>Vashi</span><span>Nerul</span><span>Belapur</span><span>Kharghar</span><span>Airoli</span><span>Ghansoli</span><span>Kopar Khairane</span><span>Turbhe</span><span>Seawoods</span><span>Panvel</span></div>
+      <p class="fine" data-i="fine"></p>
+      <button class="link" id="chlang" data-i="chlang"></button>
+    </div>
+
+    <div class="step" id="s-home">
+      <div class="notice" id="notice" role="region" aria-label="Notice" hidden>
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" style="flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1zM15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/></svg>
+        <div><b id="nt"></b><p id="nm"></p></div>
+        <button type="button" id="nx">×</button>
+      </div>
+      <div class="route">
+        <div class="leg">
+          <h3 data-i="pick"></h3>
+          <select class="in" id="pa" aria-label="Pickup area"></select>
+          <textarea class="in ta" id="pd" rows="3" maxlength="200" data-ph="addr" autocomplete="off"></textarea>
+          <div class="chips" id="pch"></div>
+        </div>
+        <div class="leg drop">
+          <h3 data-i="drop"></h3>
+          <select class="in" id="da" aria-label="Drop area"></select>
+          <textarea class="in ta" id="dd" rows="3" maxlength="200" data-ph="addr" autocomplete="off"></textarea>
+          <div class="chips" id="dch"></div>
+          <input class="in" id="rp" type="tel" inputmode="numeric" maxlength="10" data-ph="recvPh" autocomplete="off">
+        </div>
+      </div>
+      <h2 data-i="vehT"></h2>
+      <div class="vehs" role="radiogroup" aria-label="Vehicle" id="vehs"></div>
+      <div class="fare"><span><span data-i="est"></span><small data-i="estNote"></small></span><strong id="ftot">–</strong></div>
+      <p class="err" id="eh" role="alert"></p>
+      <button class="btn" id="book" data-i="book"></button>
+          </div>
+
+    <div class="step" id="s-books"><div class="blist" id="blist"></div></div>
+
+    <div class="step" id="s-prof">
+      <div class="avatar" id="av" aria-hidden="true"></div>
+      <div class="grp"><label class="lbl" for="pn" data-i="name"></label><input class="in" id="pn" maxlength="60" autocomplete="name"></div>
+      <div class="grp"><label class="lbl" for="pm" data-i="mobile"></label><input class="in" id="pm" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel-national"></div>
+      <div class="grp"><label class="lbl" for="pe" data-i="email"></label><input class="in" id="pe" readonly></div>
+      <div class="grp"><h3 data-i="saved"></h3>
+        <label class="lbl" data-i="homeL"></label>
+        <select class="in" id="ha" aria-label="Home area"></select><textarea class="in ta" id="hd" rows="3" maxlength="200" data-ph="addr"></textarea>
+        <label class="lbl" data-i="workL"></label>
+        <select class="in" id="wa" aria-label="Office area"></select><textarea class="in ta" id="wd" rows="3" maxlength="200" data-ph="addr"></textarea>
+      </div>
+      <p class="err" id="ep" role="alert"></p>
+      <button class="btn" id="psave" data-i="saveB"></button>
+      <h2 data-i="setL"></h2>
+      <div class="grp"><label class="lbl" for="pl" data-i="langL"></label>
+        <select class="in" id="pl"><option value="en">English</option><option value="hi">हिंदी</option><option value="mr">मराठी</option></select></div>
+      <div class="grp"><h3 data-i="helpT"></h3>
+        <details><summary data-i="q1"></summary><p data-i="a1"></p></details>
+        <details><summary data-i="q2"></summary><p data-i="a2"></p></details>
+        <details><summary data-i="q3"></summary><p data-i="a3"></p></details>
+      </div>
+      <button class="btn" id="out" data-i="out" style="background:var(--field);color:var(--text)"></button>
+      <p class="fine" data-i="ver"></p>
+    </div>
+
+    <div class="step done" id="s-conf">
+      <svg viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="40" fill="#FFB81C"/><path d="M26 43l12 12 21-24" fill="none" stroke="#2E2110" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <h2 data-i="confT"></h2>
+      <div><span class="help" data-i="idL"></span><div class="bid" id="bid"></div></div>
+      <dl class="sum" style="margin:0">
+        <div><dt data-i="pick"></dt><dd id="c1"></dd></div>
+        <div><dt data-i="drop"></dt><dd id="c2"></dd></div>
+        <div><dt data-i="vehL"></dt><dd id="c3"></dd></div>
+        <div><dt data-i="fareL"></dt><dd id="c4"></dd></div>
+      </dl>
+      <p class="help" style="margin:0" data-i="note"></p>
+      <button class="btn" id="newb" data-i="newB" style="width:100%"></button>
+      <button class="link" id="tobk" data-i="viewB"></button>
+    </div>
+    </section>
+  <nav class="tabs" aria-label="Main">
+    <button data-tab="s-home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span data-i="tHome"></span></button>
+    <button data-tab="s-books"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg><span data-i="tBook"></span></button>
+    <button data-tab="s-prof"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0"/></svg><span data-i="tProf"></span></button>
+  </nav>
+</main>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,GoogleAuthProvider,signInWithPopup,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc,addDoc,updateDoc,collection,query,where,onSnapshot,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// Dropbees Firebase project config. (Web config public hota hai, asli suraksha Firestore rules se hoti hai.)
+const FIREBASE_CONFIG={apiKey:"AIzaSyDu0bUwSw4DHgZIK-HyipCf7F1nXRsqPkg",authDomain:"dropbees-496fd.firebaseapp.com",projectId:"dropbees-496fd",storageBucket:"dropbees-496fd.firebasestorage.app",messagingSenderId:"494419837809",appId:"1:494419837809:web:38cb681b7de303ce666cd0"};
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var T={
+   en:{tag:"Parcel pickup and drop, right from your doorstep.",sub:"Only in Navi Mumbai for now",loginT:"Log in or sign up",help1:"Sign in with your Google account in one tap.",google:"Continue with Google",loading:"Signing in…",demo:"Demo mode. Real Google login will be connected next.",where:"We deliver in these areas:",fine:"By continuing, you agree to the Dropbees Terms and Privacy Policy.",out:"Log out",cont:"Continue",chlang:"Change language",langT:"Choose language",langH:"Select the language you want to use.",
+     h:"Hi {n}, where is the parcel going?",pick:"Pickup",drop:"Drop",selArea:"Select area",addr:"Full address (flat, building, street, landmark)",recvPh:"Receiver mobile number",vehT:"Vehicle",upto:"Up to {n} kg",fareNA:"Select both areas",est:"Estimated fare",estNote:"Final fare may vary slightly.",book:"Book now",eArea:"Select pickup and drop area.",eAddr:"Enter pickup and drop address.",ePh:"Enter a valid 10-digit receiver mobile number.",confT:"Booking confirmed",idL:"Booking ID",vehL:"Vehicle",fareL:"Estimated fare",note:"A driver will be assigned shortly and will call you.",newB:"New booking",
+     tHome:"Home",tBook:"Bookings",tProf:"Profile",bkT:"My bookings",profT:"My profile",noB:"No bookings yet",noBH:"Your parcel bookings will show up here.",stB:"Booked",stC:"Cancelled",cancelB:"Cancel booking",again:"Book again",viewB:"View my bookings",name:"Full name",mobile:"Mobile number",email:"Email",saved:"Saved addresses",homeL:"Home",workL:"Office",saveB:"Save changes",savedOk:"Profile saved.",setL:"Settings",langL:"Language",helpT:"Help and support",q1:"How is the fare calculated?",a1:"The fare depends on the distance between the pickup and drop areas. The final fare may vary slightly.",q2:"What can I send?",a2:"Parcels up to 10 kg that fit on a bike, such as documents, small boxes and bags.",q3:"Where do you deliver?",a3:"Only in Navi Mumbai for now, from Airoli to Panvel.",ver:"Dropbees · Bike delivery in Navi Mumbai",eName:"Enter your name.",eMob:"Enter a valid 10-digit mobile number.",needMob:"Add your mobile number to book a pickup.",useH:"Use Home",useW:"Use Office",noticeT:"Notice",closeL:"Dismiss",stS:"Finding a rider",stA:"Rider assigned",stP:"Picked up",stD:"Delivered",riderL:"Rider",errG:"Something went wrong. Please try again."},
+   hi:{tag:"पार्सल पिकअप और ड्रॉप, सीधे आपके दरवाज़े से।",sub:"अभी सिर्फ़ नवी मुंबई में",loginT:"लॉगिन या साइन अप",help1:"अपने Google अकाउंट से एक टैप में लॉगिन करें।",google:"Google से जारी रखें",loading:"लॉगिन हो रहा है…",demo:"डेमो मोड। असली Google लॉगिन अगले चरण में जुड़ेगा।",where:"हम इन जगहों पर सेवा देते हैं:",fine:"आगे बढ़ने पर आप Dropbees की शर्तों और प्राइवेसी पॉलिसी से सहमत हैं।",out:"लॉग आउट",cont:"आगे बढ़ें",chlang:"भाषा बदलें",langT:"भाषा चुनें",langH:"वह भाषा चुनें जिसमें आप ऐप इस्तेमाल करना चाहते हैं।",
+     h:"{n}, पार्सल कहाँ भेजना है?",pick:"पिकअप",drop:"ड्रॉप",selArea:"इलाका चुनें",addr:"पूरा पता (फ्लैट, बिल्डिंग, गली, लैंडमार्क)",recvPh:"पाने वाले का मोबाइल नंबर",vehT:"गाड़ी",upto:"{n} किलो तक",fareNA:"दोनों इलाके चुनें",est:"अनुमानित किराया",estNote:"अंतिम किराया थोड़ा अलग हो सकता है।",book:"अभी बुक करें",eArea:"पिकअप और ड्रॉप का इलाका चुनें।",eAddr:"पिकअप और ड्रॉप का पता डालें।",ePh:"पाने वाले का सही 10 अंकों का मोबाइल नंबर डालें।",confT:"बुकिंग हो गई",idL:"बुकिंग ID",vehL:"गाड़ी",fareL:"अनुमानित किराया",note:"जल्द ही ड्राइवर असाइन होगा और आपको कॉल करेगा।",newB:"नई बुकिंग",
+     tHome:"होम",tBook:"बुकिंग",tProf:"प्रोफ़ाइल",bkT:"मेरी बुकिंग",profT:"मेरी प्रोफ़ाइल",noB:"अभी कोई बुकिंग नहीं",noBH:"आपकी पार्सल बुकिंग यहाँ दिखेंगी।",stB:"बुक हो गई",stC:"रद्द",cancelB:"बुकिंग रद्द करें",again:"दोबारा बुक करें",viewB:"मेरी बुकिंग देखें",name:"पूरा नाम",mobile:"मोबाइल नंबर",email:"ईमेल",saved:"सेव किए पते",homeL:"घर",workL:"ऑफ़िस",saveB:"बदलाव सेव करें",savedOk:"प्रोफ़ाइल सेव हो गई।",setL:"सेटिंग्स",langL:"भाषा",helpT:"मदद और सपोर्ट",q1:"किराया कैसे तय होता है?",a1:"किराया पिकअप और ड्रॉप इलाकों की दूरी पर निर्भर करता है। अंतिम किराया थोड़ा अलग हो सकता है।",q2:"मैं क्या भेज सकता/सकती हूँ?",a2:"10 किलो तक के पार्सल जो बाइक पर आ सकें, जैसे डॉक्यूमेंट, छोटे डिब्बे और बैग।",q3:"आप कहाँ डिलीवरी करते हैं?",a3:"अभी सिर्फ़ नवी मुंबई में, ऐरोली से पनवेल तक।",ver:"Dropbees · नवी मुंबई में बाइक डिलीवरी",eName:"अपना नाम डालें।",eMob:"सही 10 अंकों का मोबाइल नंबर डालें।",needMob:"पिकअप बुक करने के लिए अपना मोबाइल नंबर जोड़ें।",useH:"घर का पता",useW:"ऑफ़िस का पता",noticeT:"सूचना",closeL:"बंद करें",stS:"राइडर ढूँढ रहे हैं",stA:"राइडर तय हो गया",stP:"पार्सल उठा लिया",stD:"डिलीवर हो गया",riderL:"राइडर",errG:"कुछ गड़बड़ हो गई। दोबारा कोशिश करें।"},
+   mr:{tag:"पार्सल पिकअप आणि ड्रॉप, थेट तुमच्या दारापर्यंत.",sub:"सध्या फक्त नवी मुंबईत",loginT:"लॉगिन किंवा साइन अप",help1:"तुमच्या Google अकाउंटने एका टॅपमध्ये लॉगिन करा.",google:"Google ने पुढे जा",loading:"लॉगिन होत आहे…",demo:"डेमो मोड. खरे Google लॉगिन पुढच्या टप्प्यात जोडू.",where:"आम्ही या भागांत सेवा देतो:",fine:"पुढे गेल्यावर तुम्ही Dropbees च्या अटी आणि प्रायव्हसी पॉलिसीला सहमत आहात.",out:"लॉग आउट",cont:"पुढे जा",chlang:"भाषा बदला",langT:"भाषा निवडा",langH:"तुम्हाला ज्या भाषेत ॲप वापरायचा आहे ती निवडा.",
+     h:"{n}, पार्सल कुठे पाठवायचे?",pick:"पिकअप",drop:"ड्रॉप",selArea:"भाग निवडा",addr:"पूर्ण पत्ता (फ्लॅट, इमारत, गल्ली, लँडमार्क)",recvPh:"घेणाऱ्याचा मोबाइल नंबर",vehT:"वाहन",upto:"{n} किलोपर्यंत",fareNA:"दोन्ही भाग निवडा",est:"अंदाजे भाडे",estNote:"अंतिम भाडे थोडे वेगळे असू शकते.",book:"आता बुक करा",eArea:"पिकअप आणि ड्रॉपचा भाग निवडा.",eAddr:"पिकअप आणि ड्रॉपचा पत्ता टाका.",ePh:"घेणाऱ्याचा बरोबर 10 अंकी मोबाइल नंबर टाका.",confT:"बुकिंग झाले",idL:"बुकिंग ID",vehL:"वाहन",fareL:"अंदाजे भाडे",note:"लवकरच ड्रायव्हर नेमला जाईल आणि तुम्हाला कॉल करेल.",newB:"नवी बुकिंग",
+     tHome:"होम",tBook:"बुकिंग",tProf:"प्रोफाइल",bkT:"माझी बुकिंग",profT:"माझी प्रोफाइल",noB:"अजून बुकिंग नाही",noBH:"तुमची पार्सल बुकिंग इथे दिसतील.",stB:"बुक झाले",stC:"रद्द",cancelB:"बुकिंग रद्द करा",again:"पुन्हा बुक करा",viewB:"माझी बुकिंग पहा",name:"पूर्ण नाव",mobile:"मोबाइल नंबर",email:"ईमेल",saved:"सेव्ह केलेले पत्ते",homeL:"घर",workL:"ऑफिस",saveB:"बदल सेव्ह करा",savedOk:"प्रोफाइल सेव्ह झाली.",setL:"सेटिंग्ज",langL:"भाषा",helpT:"मदत आणि सपोर्ट",q1:"भाडे कसे ठरते?",a1:"भाडे पिकअप आणि ड्रॉप भागांमधील अंतरावर अवलंबून असते. अंतिम भाडे थोडे वेगळे असू शकते.",q2:"मी काय पाठवू शकतो/शकते?",a2:"10 किलोपर्यंतचे पार्सल जे बाइकवर बसू शकतात, जसे कागदपत्रे, छोटे बॉक्स आणि बॅग.",q3:"तुम्ही कुठे डिलिव्हरी करता?",a3:"सध्या फक्त नवी मुंबईत, ऐरोलीपासून पनवेलपर्यंत.",ver:"Dropbees · नवी मुंबईत बाइक डिलिव्हरी",eName:"तुमचे नाव टाका.",eMob:"बरोबर 10 अंकी मोबाइल नंबर टाका.",needMob:"पिकअप बुक करण्यासाठी तुमचा मोबाइल नंबर जोडा.",useH:"घरचा पत्ता",useW:"ऑफिसचा पत्ता",noticeT:"सूचना",closeL:"बंद करा",stS:"रायडर शोधत आहोत",stA:"रायडर नेमला",stP:"पार्सल घेतले",stD:"डिलिव्हर झाले",riderL:"रायडर",errG:"काहीतरी चुकले. पुन्हा प्रयत्न करा."}
+  };
+  // Approx. position (km) along the Navi Mumbai corridor; fare is an estimate, no map needed.
+  var AREAS=[["Airoli",0],["Ghansoli",3],["Kopar Khairane",6],["Turbhe",9],["Vashi",12],["Nerul",17],["Seawoods",19],["Belapur",22],["Kharghar",29],["Panvel",37]];
+  var VEH=[{id:"bike",n:"Bike",kg:10,b:40,k:8}];
+  // NOTICE: customers ko dikhne wala message yahan badlein.
+  // Naya message dobara dikhane ke liye id badlein (n2, n3...). Band karne ke liye on:false. type:'warn' = laal chetavni, 'info' = normal.
+  var NOTICE={on:true,type:'info',id:'n1',
+    title:{en:"Welcome to Dropbees",hi:"Dropbees में आपका स्वागत है",mr:"Dropbees मध्ये स्वागत आहे"},
+    t:{en:"Bike parcel pickup and drop in Navi Mumbai. Important updates will appear here.",hi:"नवी मुंबई में बाइक से पार्सल पिकअप और ड्रॉप। ज़रूरी सूचनाएँ यहाँ दिखेंगी।",mr:"नवी मुंबईत बाइकने पार्सल पिकअप आणि ड्रॉप. महत्त्वाच्या सूचना इथे दिसतील."}};
+  var LOC={en:'en-IN',hi:'hi-IN',mr:'mr-IN'};
+  var NAV=['s-home','s-books','s-prof'];
+  var lang='en',busy=false,veh='bike',cur='s-lang';
+  try{var sv0=localStorage.getItem('dropbees-lang');if(sv0&&T[sv0])lang=sv0}catch(e){}
+  function ld(k,def){try{var v=localStorage.getItem(k);return v?JSON.parse(v):def}catch(e){return def}}
+  function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  // DEMO: asli app mein naam aur email Google account se aayenge.
+  var P=Object.assign({name:'Demo User',phone:'',email:'demo.user@gmail.com',hA:'',hD:'',wA:'',wD:''},ld('dropbees-profile',{}));
+  var B=ld('dropbees-bookings',[]);
+  var FB=null,UID=null;
+  if(FIREBASE_CONFIG.apiKey.indexOf('PASTE')<0){var fapp=initializeApp(FIREBASE_CONFIG);FB={auth:getAuth(fapp),db:getFirestore(fapp)}}
+  function toast(m){var t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(function(){t.hidden=true},3500)}
+  function fbErr(err){console.error(err);toast(T[lang].errG)}
+  function afterLogin(){busy=false;$('google').disabled=false;apply();show('s-home')}
+  var unsubB=null,unsubN=null;
+  function mapB(id,d){return {docId:id,id:d.code,t:d.createdAt&&d.createdAt.toMillis?d.createdAt.toMillis():Date.now(),pa:d.pa,da:d.da,pd:d.pd,dd:d.dd,rp:d.rp,fare:d.fare,status:d.status,riderName:d.riderName||'',riderPhone:d.riderPhone||''}}
+  function startSession(u){
+    UID=u.uid;P.name=u.displayName||P.name;P.email=u.email||P.email;
+    getDoc(doc(FB.db,'customers',UID)).then(function(s){if(s.exists())Object.assign(P,s.data());P.email=u.email||P.email}).catch(function(){}).then(function(){
+      unsubB=onSnapshot(query(collection(FB.db,'bookings'),where('customerId','==',UID)),function(qs){
+        B=qs.docs.map(function(x){return mapB(x.id,x.data())}).sort(function(a,b){return b.t-a.t});
+        if(cur==='s-books')renderBooks();
+      },fbErr);
+      unsubN=onSnapshot(doc(FB.db,'config','notice'),function(s){var n=s.exists()&&s.data().customer;if(n){NOTICE=n;renderNotice()}},function(){});
+      afterLogin();
+    });
+  }
+
+  var esc=function(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var steps=['s-lang','s-login','s-home','s-books','s-prof','s-conf'];
+  function first(){return P.name.trim().split(/\s+/)[0]||''}
+  function title(){
+    var d=T[lang],m={'s-home':d.h.replace('{n}',first()),'s-books':d.bkT,'s-prof':d.profT,'s-conf':d.confT};
+    $('hh').textContent=m[cur]||'';
+  }
+  function show(id){
+    cur=id;
+    steps.forEach(function(x){$(x).classList.toggle('on',x===id)});
+    var app=document.querySelector('.app');
+    app.classList.toggle('home-mode',id!=='s-lang'&&id!=='s-login');
+    app.classList.toggle('has-nav',NAV.indexOf(id)>-1);
+    document.querySelectorAll('.tabs button').forEach(function(b){b.setAttribute('aria-current',b.getAttribute('data-tab')===id?'true':'false')});
+    title();
+    if(id==='s-books')renderBooks();
+    if(id==='s-prof')fillProf();
+    window.scrollTo(0,0);
+  }
+  function dist(){
+    var a=$('pa').value,d=$('da').value;if(a===''||d==='')return null;
+    return Math.max(3,Math.abs(AREAS[+a][1]-AREAS[+d][1]));
+  }
+  function fareOf(v,km){return Math.round((v.b+v.k*km)/5)*5}
+  function vehs(){
+    var d=T[lang],km=dist(),h='';
+    VEH.forEach(function(v){
+      var f=km===null?null:fareOf(v,km);
+      h+='<button class="veh" role="radio" aria-checked="'+(v.id===veh)+'" data-v="'+v.id+'"><span><b>'+v.n+'</b><small>'+d.upto.replace('{n}',v.kg)+'</small></span>'+
+        (f===null?'<span class="pr na">'+d.fareNA+'</span>':'<span class="pr">₹'+f+'</span>')+'</button>';
+    });
+    $('vehs').innerHTML=h;
+    var c=VEH.filter(function(v){return v.id===veh})[0];
+    $('ftot').textContent=km===null?'–':'₹'+fareOf(c,km);
+  }
+  function fillAreas(){
+    ['pa','da','ha','wa'].forEach(function(id){
+      var el=$(id),c=el.value,h='<option value="">'+T[lang].selArea+'</option>';
+      AREAS.forEach(function(a,i){h+='<option value="'+i+'">'+a[0]+'</option>'});
+      el.innerHTML=h;el.value=c;
+    });
+  }
+  function chips(){
+    var d=T[lang];
+    [['pch','pa|pd'],['dch','da|dd']].forEach(function(c){
+      var h='';
+      h+='<button type="button" data-s="h" data-p="'+c[1]+'">'+d.useH+'</button>';
+      h+='<button type="button" data-s="w" data-p="'+c[1]+'">'+d.useW+'</button>';
+      $(c[0]).innerHTML=h;
+    });
+  }
+  function fillProf(){
+    $('pn').value=P.name;$('pm').value=P.phone;$('pe').value=P.email;
+    $('ha').value=P.hA;$('hd').value=P.hD;$('wa').value=P.wA;$('wd').value=P.wD;
+    $('pl').value=lang;$('ep').textContent='';$('ep').className='err';
+    $('av').textContent=(P.name.trim().charAt(0)||'?').toUpperCase();
+  }
+  function renderBooks(){
+    var d=T[lang],el=$('blist');
+    if(!B.length){el.innerHTML='<div class="empty"><b>'+d.noB+'</b><p class="help" style="margin:0">'+d.noBH+'</p><button class="btn" data-go="s-home" style="width:100%">'+d.book+'</button></div>';return}
+    el.innerHTML=B.map(function(b,i){
+      var dt=new Date(b.t).toLocaleString(LOC[lang],{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'});
+      var s=b.status||(b.st==='c'?'cancelled':'demo'),ok=s==='searching'||s==='accepted'||s==='demo',lab={searching:d.stS,accepted:d.stA,picked:d.stP,delivered:d.stD,cancelled:d.stC,demo:d.stB}[s];
+      return '<div class="bk"><div class="top"><b>'+esc(b.id)+'</b><span class="chip'+(s==='cancelled'?' x':'')+'">'+lab+'</span></div>'+
+        '<div class="r">'+AREAS[b.pa][0]+' → '+AREAS[b.da][0]+'</div>'+
+        '<div class="m">'+esc(b.pd)+' → '+esc(b.dd)+'</div>'+
+        '<div class="m">'+dt+' · ₹'+b.fare+'</div>'+(b.riderName?'<div class="m">'+d.riderL+': '+esc(b.riderName)+(/^\d{10}$/.test(b.riderPhone)?' · <a href="tel:+91'+b.riderPhone+'">'+b.riderPhone+'</a>':'')+'</div>':'')+
+        '<div class="acts">'+(ok?'<button class="link" data-cancel="'+i+'">'+d.cancelB+'</button>':'')+'<button class="link" data-again="'+i+'">'+d.again+'</button></div></div>';
+    }).join('');
+  }
+  function renderNotice(){
+    var el=$('notice'),n=NOTICE,gone=false,msg=n.t[lang]||n.t.en;
+    try{gone=localStorage.getItem('dropbees-notice')===n.id}catch(e){}
+    if(!n.on||gone||!msg){el.hidden=true;return}
+    el.hidden=false;el.className='notice'+(n.type==='warn'?' warn':'');
+    $('nt').textContent=(n.title&&(n.title[lang]||n.title.en))||T[lang].noticeT;
+    $('nm').textContent=msg;
+    $('nx').setAttribute('aria-label',T[lang].closeL);
+  }
+  function apply(){
+    var d=T[lang];
+    document.documentElement.lang=lang;
+    document.querySelectorAll('[data-i]').forEach(function(el){el.textContent=d[el.getAttribute('data-i')]});
+    document.querySelectorAll('[data-ph]').forEach(function(el){el.placeholder=d[el.getAttribute('data-ph')]});
+    $('gtxt').textContent=busy?d.loading:d.google;
+    document.querySelectorAll('.lang').forEach(function(b){b.setAttribute('aria-checked',b.getAttribute('data-l')===lang?'true':'false')});
+    fillAreas();vehs();chips();title();renderNotice();
+    if(cur==='s-prof')fillProf();
+    if(cur==='s-books')renderBooks();
+  }
+  function saveLang(){try{localStorage.setItem('dropbees-lang',lang)}catch(e){}}
+  document.querySelectorAll('.lang').forEach(function(b){
+    b.addEventListener('click',function(){lang=b.getAttribute('data-l');apply()});
+  });
+  $('cont').addEventListener('click',function(){saveLang();show('s-login')});
+  $('chlang').addEventListener('click',function(){show('s-lang')});
+  $('pl').addEventListener('change',function(){lang=$('pl').value;saveLang();apply()});
+
+  // DEMO: yahan asli Google Sign-In (Google Identity Services / Firebase Auth) judega.
+  $('google').addEventListener('click',function(){
+    if(busy)return;
+    busy=true;$('google').disabled=true;apply();
+    if(!FB){setTimeout(afterLogin,900);return}
+    signInWithPopup(FB.auth,new GoogleAuthProvider()).then(function(r){startSession(r.user)}).catch(function(err){busy=false;$('google').disabled=false;apply();fbErr(err)});
+  });
+  $('out').addEventListener('click',function(){if(FB&&UID){if(unsubB)unsubB();if(unsubN)unsubN();unsubB=unsubN=null;signOut(FB.auth);UID=null;B=[]}show('s-login')});
+  document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener('click',function(){show(b.getAttribute('data-tab'))})});
+
+  $('pa').addEventListener('change',vehs);$('da').addEventListener('change',vehs);
+  ['rp','pm'].forEach(function(id){$(id).addEventListener('input',function(){$(id).value=$(id).value.replace(/\D/g,'')})});
+  $('vehs').addEventListener('click',function(e){
+    var b=e.target.closest('.veh');if(!b)return;veh=b.getAttribute('data-v');vehs();
+  });
+  ['pa','da','pd','dd','rp'].forEach(function(id){$(id).addEventListener('input',function(){$('eh').textContent=''})});
+  document.addEventListener('click',function(e){
+    var c=e.target.closest('.chips button');
+    if(c){var pr=c.getAttribute('data-p').split('|'),s=c.getAttribute('data-s');if(P[s+'A']===''){show('s-prof');return}$(pr[0]).value=P[s+'A'];$(pr[1]).value=P[s+'D'];vehs();return}
+    var g=e.target.closest('[data-go]');if(g){show(g.getAttribute('data-go'));return}
+  });
+  $('blist').addEventListener('click',function(e){
+    var c=e.target.closest('[data-cancel]'),a=e.target.closest('[data-again]');
+    if(c){var bb=B[+c.getAttribute('data-cancel')];if(FB&&bb.docId){updateDoc(doc(FB.db,'bookings',bb.docId),{status:'cancelled'}).catch(fbErr)}else{bb.st='c';sv('dropbees-bookings',B);renderBooks()}}
+    if(a){var b=B[+a.getAttribute('data-again')];$('pa').value=b.pa;$('da').value=b.da;$('pd').value=b.pd;$('dd').value=b.dd;$('rp').value=b.rp;vehs();show('s-home')}
+  });
+
+  $('psave').addEventListener('click',function(){
+    var d=T[lang],n=$('pn').value.trim(),m=$('pm').value,ep=$('ep');
+    ep.className='err';
+    if(!n){ep.textContent=d.eName;return}
+    if(m&&!/^[6-9]\d{9}$/.test(m)){ep.textContent=d.eMob;return}
+    P.name=n;P.phone=m;P.hA=$('ha').value;P.hD=$('hd').value.trim();P.wA=$('wa').value;P.wD=$('wd').value.trim();
+    sv('dropbees-profile',P);if(FB&&UID)setDoc(doc(FB.db,'customers',UID),P).catch(fbErr);
+    $('av').textContent=(n.charAt(0)||'?').toUpperCase();
+    chips();title();
+    ep.className='err ok';ep.textContent=d.savedOk;
+  });
+
+  $('book').addEventListener('click',function(){
+    var d=T[lang];
+    if(dist()===null){$('eh').textContent=d.eArea;return}
+    if(!$('pd').value.trim()||!$('dd').value.trim()){$('eh').textContent=d.eAddr;return}
+    if(!/^[6-9]\d{9}$/.test($('rp').value)){$('eh').textContent=d.ePh;return}
+    if(!P.phone){show('s-prof');$('ep').textContent=d.needMob;return}
+    var c=VEH.filter(function(v){return v.id===veh})[0],km=dist(),f=fareOf(c,km);
+    var rec={id:'DB'+Math.floor(10000+Math.random()*90000),t:Date.now(),pa:+$('pa').value,da:+$('da').value,pd:$('pd').value.trim(),dd:$('dd').value.trim(),rp:$('rp').value,fare:f,st:'b'};
+    if(FB){addDoc(collection(FB.db,'bookings'),{code:rec.id,customerId:UID,customerName:P.name,customerPhone:P.phone,pa:rec.pa,da:rec.da,pd:rec.pd,dd:rec.dd,rp:rec.rp,fare:rec.fare,status:'searching',createdAt:serverTimestamp()}).catch(fbErr)}else{B.unshift(rec);sv('dropbees-bookings',B)}
+    $('bid').textContent=rec.id;
+    $('c1').textContent=AREAS[rec.pa][0]+' – '+rec.pd;
+    $('c2').textContent=AREAS[rec.da][0]+' – '+rec.dd;
+    $('c3').textContent=c.n;
+    $('c4').textContent='₹'+f;
+    show('s-conf');
+  });
+  $('newb').addEventListener('click',function(){
+    ['pd','dd','rp'].forEach(function(id){$(id).value=''});
+    $('pa').value='';$('da').value='';vehs();show('s-home');
+  });
+  $('tobk').addEventListener('click',function(){show('s-books')});
+  $('nx').addEventListener('click',function(){try{localStorage.setItem('dropbees-notice',NOTICE.id)}catch(e){}$('notice').hidden=true});
+  if(FB){
+    document.querySelectorAll('.demo').forEach(function(e){e.hidden=true});
+    onAuthStateChanged(FB.auth,function(u){if(u&&!UID&&!busy){busy=true;startSession(u)}});
+  }
+  apply();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dropbees Rider</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Mulish:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --honey:#FFB81C; --honey-d:#E39B00; --ink:#2E2110; --sheet:#FFFFFF;
+  --field:#F6F3EC; --text:#2E2110; --muted:#7A6C58; --line:#E6DFD0;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--sheet:#211A0E;--field:#2E2514;--text:#F7EFDF;--muted:#B5A78E;--line:#3A2F1B}
+}
+:root[data-theme="dark"]{--sheet:#211A0E;--field:#2E2514;--text:#F7EFDF;--muted:#B5A78E;--line:#3A2F1B}
+*,*::before,*::after{box-sizing:inherit}
+html{margin:0}body{margin:0;min-height:100vh;min-height:100dvh}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--honey);color:var(--text);font-family:'Mulish','Noto Sans Devanagari',system-ui,-apple-system,'Segoe UI',sans-serif;display:flex;justify-content:center}
+.app{width:100%;max-width:440px;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;background:var(--honey);position:relative;overflow-x:clip}
+.hero{flex:0 0 auto;padding:44px 28px 56px;color:var(--ink);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'%3E%3Cpath d='M28 2l26 15v30L28 62 2 47V17zM28 95L2 80V50M54 50v30L28 95' fill='none' stroke='%23E39B00' stroke-opacity='.35' stroke-width='1.5'/%3E%3C/svg%3E");}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{width:48px;height:52px;flex:none}
+.wordmark{font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:34px;line-height:1;letter-spacing:-.5px;margin:0}
+.tag{font-family:'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif;font-weight:600;font-size:26px;line-height:1.2;margin:28px 0 6px}
+.sub{margin:0;font-size:15px;font-weight:600;opacity:.8}
+.sheet{flex:1;background:var(--sheet);border-radius:28px 28px 0 0;margin-top:-28px;padding:28px 24px 24px;display:flex;flex-direction:column;gap:18px;position:relative}
+h2{font-family:'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif;font-size:22px;margin:0;font-weight:800;color:var(--text)}
+p.help{margin:-8px 0 0;color:var(--muted);font-size:14px}
+.btn{height:54px;border:0;border-radius:14px;background:var(--honey);color:var(--ink);font:800 17px 'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif;cursor:pointer;transition:background .15s,transform .1s}
+.btn:hover{background:var(--honey-d)} .btn:active{transform:scale(.98)}
+.gbtn{height:56px;border-radius:14px;background:#fff;color:#3c4043;border:1px solid #dadce0;display:flex;align-items:center;justify-content:center;gap:12px;font:700 16px 'Mulish','Noto Sans Devanagari',system-ui,sans-serif;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.gbtn:hover{box-shadow:0 1px 4px rgba(60,64,67,.3)} .gbtn:active{transform:scale(.98)}
+.gbtn svg{width:22px;height:22px;flex:none}
+.gbtn[disabled]{opacity:.7;cursor:wait}
+.btn:focus-visible,.link:focus-visible,.gbtn:focus-visible,.lang:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn:focus-visible,:root:not([data-theme="light"]) .link:focus-visible,:root:not([data-theme="light"]) .gbtn:focus-visible,:root:not([data-theme="light"]) .lang:focus-visible{outline-color:var(--honey)}}
+.link{background:none;border:0;padding:0;font:700 14px 'Mulish','Noto Sans Devanagari',system-ui,sans-serif;color:var(--muted);cursor:pointer;text-align:left;text-decoration:underline}
+.areas{display:flex;flex-wrap:wrap;gap:8px}
+.areas span{font-size:12.5px;font-weight:700;padding:6px 11px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.where{font-size:13px;color:var(--muted);margin:0;font-weight:600}
+.fine{margin-top:auto;font-size:12px;color:var(--muted);text-align:center;line-height:1.5}
+.demo{font-size:12px;color:var(--muted);text-align:center;margin:-6px 0 0}
+.step{display:none;flex-direction:column;gap:18px}
+.step.on{display:flex}
+.done{align-items:center;text-align:center;padding-top:12px}
+.done svg{width:84px;height:84px}
+.langs{display:flex;flex-direction:column;gap:12px}
+.lang{display:flex;align-items:center;justify-content:space-between;height:62px;padding:0 18px;border-radius:14px;background:var(--field);border:2px solid transparent;color:var(--text);font:800 20px 'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif;cursor:pointer;text-align:left}
+.lang small{font:600 13px 'Mulish',system-ui,sans-serif;color:var(--muted)}
+.lang[aria-checked="true"]{border-color:var(--honey);background:color-mix(in srgb,var(--honey) 18%,var(--field))}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.home-mode .l-only{display:none}
+.h-only{display:none}
+.home-mode .h-only{display:block}
+.home-mode .hero{padding:28px 24px 44px}
+.hhead{font-family:'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif;font-weight:800;font-size:24px;line-height:1.2;margin:18px 0 0}
+.toprow{display:flex;align-items:center;justify-content:space-between}
+.toprow .link{color:var(--ink);opacity:.8}
+.route{position:relative;display:flex;flex-direction:column;gap:14px;padding-left:26px}
+.route::before{content:"";position:absolute;left:7px;top:14px;bottom:14px;border-left:2px dashed var(--line)}
+.leg{position:relative;display:flex;flex-direction:column;gap:8px}
+.leg::before{content:"";position:absolute;left:-26px;top:3px;width:16px;height:16px;border-radius:50%;background:var(--honey);border:4px solid var(--sheet);box-shadow:0 0 0 2px var(--honey)}
+.leg.drop::before{border-radius:3px;background:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .leg.drop::before{background:var(--text);box-shadow:0 0 0 2px var(--text)}}
+.leg h3{margin:0;font:800 15px 'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif;color:var(--text)}
+.in{width:100%;height:48px;border:2px solid transparent;border-radius:12px;background:var(--field);color:var(--text);font:600 15px 'Mulish','Noto Sans Devanagari',system-ui,sans-serif;padding:0 12px;outline:none;appearance:none;-webkit-appearance:none}
+select.in{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%237A6C58' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.in:focus{border-color:var(--honey)}
+.in::placeholder{color:var(--muted)}
+.vehs{display:flex;flex-direction:column;gap:10px}
+.veh{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-radius:14px;background:var(--field);border:2px solid transparent;color:var(--text);cursor:pointer;text-align:left;font:inherit}
+.veh b{display:block;font:800 17px 'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif}
+.veh small{color:var(--muted);font-size:12.5px;font-weight:600}
+.veh .pr{font:800 18px 'Baloo 2',system-ui,sans-serif;white-space:nowrap}
+.veh .pr.na{font-size:12px;font-weight:600;color:var(--muted);white-space:normal;text-align:right;max-width:110px}
+.veh[aria-checked="true"]{border-color:var(--honey);background:color-mix(in srgb,var(--honey) 18%,var(--field))}
+.veh:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .veh:focus-visible{outline-color:var(--honey)}}
+.err{color:#C0392B;font-size:13px;font-weight:700;min-height:16px;margin:-6px 0 -6px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .err{color:#FF7A6B}}
+.fare{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:700}
+.fare small{display:block;color:var(--muted);font-weight:600;font-size:12px}
+.fare strong{font:800 24px 'Baloo 2',system-ui,sans-serif}
+.sum{width:100%;display:flex;flex-direction:column;gap:10px;text-align:left;background:var(--field);border-radius:14px;padding:14px 16px}
+.sum div{display:flex;justify-content:space-between;gap:16px;font-size:14px}
+.sum dt{color:var(--muted);font-weight:600}
+.sum dd{margin:0;font-weight:700;text-align:right}
+.bid{font:800 22px 'Baloo 2',system-ui,sans-serif;letter-spacing:1px}
+
+.tabs{display:none;position:sticky;bottom:0;background:var(--sheet);border-top:1px solid var(--line);padding:6px 8px;z-index:5}
+.has-nav .tabs{display:flex}
+.tabs button{flex:1;background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;color:var(--muted);font:700 11.5px 'Mulish','Noto Sans Devanagari',system-ui,sans-serif;cursor:pointer}
+.tabs svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tabs button[aria-current="true"]{color:var(--text)}
+.tabs [aria-current="true"] svg{stroke:var(--honey-d)}
+.tabs button:focus-visible{outline:3px solid var(--honey-d);outline-offset:-3px;border-radius:10px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips:empty{display:none}
+.chips button{border:1px solid var(--line);background:none;color:var(--text);border-radius:99px;padding:5px 12px;font:700 12.5px 'Mulish','Noto Sans Devanagari',system-ui,sans-serif;cursor:pointer}
+.bk{background:var(--field);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.bk .top{display:flex;justify-content:space-between;align-items:center}
+.chip{font-size:12px;font-weight:800;padding:3px 10px;border-radius:99px;background:var(--honey);color:var(--ink)}
+.chip.x{background:var(--line);color:var(--muted)}
+.bk .r{font-size:15px;font-weight:800}
+.bk .m{font-size:12.5px;color:var(--muted);font-weight:600}
+.bk .acts{display:flex;gap:18px;margin-top:4px}
+.blist{display:flex;flex-direction:column;gap:12px}
+.empty{display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;padding:24px 0}
+.avatar{width:68px;height:68px;border-radius:50%;background:var(--honey);color:var(--ink);display:flex;align-items:center;justify-content:center;font:800 30px 'Baloo 2',system-ui,sans-serif;align-self:center}
+.lbl{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:-10px}
+.grp{display:flex;flex-direction:column;gap:8px}
+.grp h3{margin:6px 0 0;font:800 15px 'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif}
+.in[readonly]{opacity:.7}
+.err.ok{color:#2E8B4F}
+details{background:var(--field);border-radius:12px;padding:12px 14px}
+summary{font-weight:700;cursor:pointer;font-size:14px}
+details p{margin:8px 0 0;font-size:13.5px;color:var(--muted)}
+.in.ta{height:auto;min-height:96px;padding:12px;line-height:1.45;resize:vertical;font-family:inherit}
+.bk .m,.sum dd{white-space:pre-line}
+.chips button{font-weight:800}
+.notice{display:flex;gap:12px;align-items:flex-start;background:color-mix(in srgb,var(--honey) 22%,var(--sheet));border:1.5px solid var(--honey);border-radius:14px;padding:12px 14px;color:var(--text)}
+.notice[hidden]{display:none}
+.notice.warn{border-color:#E4572E;background:color-mix(in srgb,#E4572E 12%,var(--sheet))}
+.notice b{display:block;font:800 15px 'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif}
+.notice p{margin:2px 0 0;font-size:13.5px;line-height:1.45;white-space:pre-line}
+.notice button{margin-left:auto;background:none;border:0;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;padding:0 2px}
+.notice button:focus-visible{outline:3px solid var(--honey-d);outline-offset:2px}
+
+.badge{font:800 12px 'Baloo 2',system-ui,sans-serif;background:#2E2110;color:#FFB81C;padding:3px 10px;border-radius:99px;align-self:center}
+.stats{display:flex;gap:10px}
+.stat{flex:1;background:var(--field);border-radius:14px;padding:12px 14px}
+.stat small{display:block;color:var(--muted);font-size:12px;font-weight:600}
+.stat b{font:800 24px 'Baloo 2',system-ui,sans-serif}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--line);flex:none}
+.dot.on{background:#2E8B4F}
+.col{display:flex;flex-direction:column;gap:14px}
+.row2{display:flex;gap:10px}
+.btn.alt{background:var(--field);color:var(--text)}
+a.link{display:inline-block}
+.toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:#2E2110;color:#fff;padding:10px 16px;border-radius:12px;font:700 13px 'Mulish','Noto Sans Devanagari',system-ui,sans-serif;z-index:30;max-width:90%;text-align:center}
+.toast[hidden]{display:none}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="hero">
+    <div class="brand">
+      <svg viewBox="0 0 48 52" aria-hidden="true"><path d="M24 2l20 12v24L24 50 4 38V14z" fill="#2E2110"/><path d="M24 12c5 7 8 11 8 16a8 8 0 0 1-16 0c0-5 3-9 8-16z" fill="#FFB81C"/></svg>
+      <h1 class="wordmark">dropbees</h1><span class="badge">Rider</span>
+    </div>
+    <p class="tag l-only" data-i="tag"></p>
+    <p class="sub l-only" data-i="sub"></p>
+    <p class="hhead h-only" id="hh"></p>
+  </header>
+
+  <section class="sheet">
+    <div class="step on" id="s-lang">
+      <h2 data-i="langT"></h2>
+      <p class="help" data-i="langH"></p>
+      <div class="langs" role="radiogroup" aria-label="Language">
+        <button class="lang" role="radio" aria-checked="true" data-l="en">English <small>English</small></button>
+        <button class="lang" role="radio" aria-checked="false" data-l="hi">हिंदी <small>Hindi</small></button>
+        <button class="lang" role="radio" aria-checked="false" data-l="mr">मराठी <small>Marathi</small></button>
+      </div>
+      <button class="btn" id="cont" data-i="cont"></button>
+    </div>
+
+    <div class="step" id="s-login">
+      <h2 data-i="loginT"></h2>
+      <p class="help" data-i="help1"></p>
+      <button class="gbtn" id="google">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.5 28.7a14.5 14.5 0 0 1 0-9.4l-7.9-6.1a24 24 0 0 0 0 21.6l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.9 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>
+        <span id="gtxt"></span>
+      </button>
+      <p class="demo" data-i="demo"></p>
+      <p class="fine" data-i="fine"></p>
+      <button class="link" id="chlang" data-i="chlang"></button>
+    </div>
+
+    <div class="step" id="s-home">
+      <div class="notice" id="notice" role="region" aria-label="Notice" hidden>
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" style="flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1zM15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/></svg>
+        <div><b id="nt"></b><p id="nm"></p></div>
+        <button type="button" id="nx">×</button>
+      </div>
+      <div class="bk">
+        <div class="top"><b id="st"></b><span class="dot" id="dot"></span></div>
+        <p class="help" id="sts" style="margin:0"></p>
+        <button class="btn" id="tog"></button>
+        <p class="err" id="eh" role="alert" style="margin:0"></p>
+      </div>
+      <div class="stats">
+        <div class="stat"><small id="sl1"></small><b id="sv1"></b></div>
+        <div class="stat"><small id="sl2"></small><b id="sv2"></b></div>
+      </div>
+      <div class="col" id="hmain"></div>
+    </div>
+
+    <div class="step" id="s-trips">
+      <div class="stats" id="tstats"></div>
+      <div class="blist" id="tlist"></div>
+    </div>
+
+    <div class="step" id="s-prof">
+      <div class="avatar" id="av" aria-hidden="true"></div>
+      <div class="grp"><label class="lbl" for="pn" data-i="name"></label><input class="in" id="pn" maxlength="60" autocomplete="name"></div>
+      <div class="grp"><label class="lbl" for="pm" data-i="mobile"></label><input class="in" id="pm" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel-national"></div>
+      <div class="grp"><label class="lbl" for="pe" data-i="email"></label><input class="in" id="pe" readonly></div>
+      <div class="grp"><label class="lbl" for="pb" data-i="bike"></label><input class="in" id="pb" maxlength="14" placeholder="MH 43 AB 1234" autocapitalize="characters"></div>
+      <div class="grp"><label class="lbl" for="pw" data-i="area"></label><select class="in" id="pw"></select></div>
+      <p class="help" id="vs" style="margin:0"></p>
+      <p class="err" id="ep" role="alert"></p>
+      <button class="btn" id="psave" data-i="saveB"></button>
+      <h2 data-i="setL"></h2>
+      <div class="grp"><label class="lbl" for="pl" data-i="langL"></label>
+        <select class="in" id="pl"><option value="en">English</option><option value="hi">हिंदी</option><option value="mr">मराठी</option></select></div>
+      <div class="grp"><h3 data-i="helpT"></h3>
+        <details><summary data-i="q1"></summary><p data-i="a1"></p></details>
+        <details><summary data-i="q2"></summary><p data-i="a2"></p></details>
+      </div>
+      <button class="btn alt" id="out" data-i="out"></button>
+      <p class="fine" data-i="ver"></p>
+    </div>
+
+    <div class="step done" id="s-done">
+      <svg viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="40" fill="#FFB81C"/><path d="M26 43l12 12 21-24" fill="none" stroke="#2E2110" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <h2 id="dn"></h2>
+      <button class="btn" id="back" data-i="back" style="width:100%"></button>
+    </div>
+  </section>
+  <nav class="tabs" aria-label="Main">
+    <button data-tab="s-home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span data-i="tHome"></span></button>
+    <button data-tab="s-trips"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8M14 7h7v7"/></svg><span data-i="tTrips"></span></button>
+    <button data-tab="s-prof"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0"/></svg><span data-i="tProf"></span></button>
+  </nav>
+</main>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,GoogleAuthProvider,signInWithPopup,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc,addDoc,updateDoc,collection,query,where,onSnapshot,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// Dropbees Firebase project config. (Web config public hota hai, asli suraksha Firestore rules se hoti hai.)
+const FIREBASE_CONFIG={apiKey:"AIzaSyDu0bUwSw4DHgZIK-HyipCf7F1nXRsqPkg",authDomain:"dropbees-496fd.firebaseapp.com",projectId:"dropbees-496fd",storageBucket:"dropbees-496fd.firebasestorage.app",messagingSenderId:"494419837809",appId:"1:494419837809:web:38cb681b7de303ce666cd0"};
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var T={
+   en:{tag:"Pickup and drop deliveries for bike riders.",sub:"Navi Mumbai",loginT:"Rider login",help1:"Sign in with your Google account in one tap.",google:"Continue with Google",loading:"Signing in…",demo:"Demo mode. Real Google login will be connected next.",fine:"By continuing, you agree to the Dropbees Terms and Privacy Policy.",out:"Log out",cont:"Continue",chlang:"Change language",langT:"Choose language",langH:"Select the language you want to use.",
+     tHome:"Home",tTrips:"Trips",tProf:"Profile",h:"Hi {n}, ready to ride?",offT:"You are offline",onT:"You are online",offS:"Go online to receive pickup requests.",onS:"Pickup requests will appear below.",goOn:"Go online",goOff:"Go offline",needProf:"Complete your profile to go online.",
+     todayT:"Today",trips:"Trips",earn:"Earnings",waitT:"Waiting for requests…",waitH:"Stay online. New requests will appear here.",demoReq:"Demo: sample requests are shown for now.",
+     reqT:"New request",pick:"Pickup",drop:"Drop",upto:"Up to 10 kg",km:"{n} km",youEarn:"You earn",accept:"Accept",reject:"Reject",
+     actT:"Current delivery",s1:"Go to the pickup address.",s2:"Parcel picked up. Deliver it now.",btnP:"Parcel picked up",btnD:"Delivered",callC:"Call customer",callR:"Call receiver",doneT:"Delivery complete",doneH:"You earned ₹{n}.",back:"Back to home",
+     tripsT:"My trips",week:"This week",total:"Total",noTr:"No trips yet",noTrH:"Completed deliveries will show up here.",
+     profT:"My profile",name:"Full name",mobile:"Mobile number",email:"Email",bike:"Bike number",area:"Working area",saveB:"Save changes",savedOk:"Profile saved.",eName:"Enter your name.",eMob:"Enter a valid 10-digit mobile number.",eBike:"Enter a valid bike number, for example MH 43 AB 1234.",setL:"Settings",langL:"Language",helpT:"Help and support",q1:"How do I get requests?",a1:"Complete your profile and tap Go online. New requests appear on the Home screen.",q2:"How is my earning calculated?",a2:"Each request shows what you will earn before you accept it.",ver:"Dropbees Rider · Navi Mumbai",selArea:"Select area",noticeT:"Notice",closeL:"Dismiss",vOk:"Account approved",vPend:"Your account is waiting for approval. We will enable it soon.",errG:"Something went wrong. Please try again."},
+   hi:{tag:"बाइक राइडर्स के लिए पिकअप और ड्रॉप डिलीवरी।",sub:"नवी मुंबई",loginT:"राइडर लॉगिन",help1:"अपने Google अकाउंट से एक टैप में लॉगिन करें।",google:"Google से जारी रखें",loading:"लॉगिन हो रहा है…",demo:"डेमो मोड। असली Google लॉगिन अगले चरण में जुड़ेगा।",fine:"आगे बढ़ने पर आप Dropbees की शर्तों और प्राइवेसी पॉलिसी से सहमत हैं।",out:"लॉग आउट",cont:"आगे बढ़ें",chlang:"भाषा बदलें",langT:"भाषा चुनें",langH:"वह भाषा चुनें जिसमें आप ऐप इस्तेमाल करना चाहते हैं।",
+     tHome:"होम",tTrips:"ट्रिप",tProf:"प्रोफ़ाइल",h:"{n}, राइड के लिए तैयार?",offT:"आप ऑफ़लाइन हैं",onT:"आप ऑनलाइन हैं",offS:"पिकअप रिक्वेस्ट पाने के लिए ऑनलाइन हों।",onS:"पिकअप रिक्वेस्ट नीचे दिखेंगी।",goOn:"ऑनलाइन हों",goOff:"ऑफ़लाइन हों",needProf:"ऑनलाइन होने के लिए अपनी प्रोफ़ाइल पूरी करें।",
+     todayT:"आज",trips:"ट्रिप",earn:"कमाई",waitT:"रिक्वेस्ट का इंतज़ार…",waitH:"ऑनलाइन रहें। नई रिक्वेस्ट यहाँ दिखेंगी।",demoReq:"डेमो: अभी सैंपल रिक्वेस्ट दिखाई जा रही हैं।",
+     reqT:"नई रिक्वेस्ट",pick:"पिकअप",drop:"ड्रॉप",upto:"10 किलो तक",km:"{n} किमी",youEarn:"आपकी कमाई",accept:"स्वीकार करें",reject:"मना करें",
+     actT:"मौजूदा डिलीवरी",s1:"पिकअप पते पर जाएँ।",s2:"पार्सल ले लिया। अब डिलीवर करें।",btnP:"पार्सल ले लिया",btnD:"डिलीवर हो गया",callC:"ग्राहक को कॉल करें",callR:"पाने वाले को कॉल करें",doneT:"डिलीवरी पूरी हुई",doneH:"आपने ₹{n} कमाए।",back:"होम पर वापस",
+     tripsT:"मेरी ट्रिप",week:"इस हफ़्ते",total:"कुल",noTr:"अभी कोई ट्रिप नहीं",noTrH:"पूरी हुई डिलीवरी यहाँ दिखेंगी।",
+     profT:"मेरी प्रोफ़ाइल",name:"पूरा नाम",mobile:"मोबाइल नंबर",email:"ईमेल",bike:"बाइक नंबर",area:"काम का इलाका",saveB:"बदलाव सेव करें",savedOk:"प्रोफ़ाइल सेव हो गई।",eName:"अपना नाम डालें।",eMob:"सही 10 अंकों का मोबाइल नंबर डालें।",eBike:"सही बाइक नंबर डालें, जैसे MH 43 AB 1234।",setL:"सेटिंग्स",langL:"भाषा",helpT:"मदद और सपोर्ट",q1:"रिक्वेस्ट कैसे मिलेंगी?",a1:"प्रोफ़ाइल पूरी करें और ऑनलाइन हों पर टैप करें। नई रिक्वेस्ट होम स्क्रीन पर दिखेंगी।",q2:"मेरी कमाई कैसे तय होती है?",a2:"हर रिक्वेस्ट स्वीकार करने से पहले आपकी कमाई दिखाती है।",ver:"Dropbees राइडर · नवी मुंबई",selArea:"इलाका चुनें",noticeT:"सूचना",closeL:"बंद करें",vOk:"अकाउंट अप्रूव हो गया",vPend:"आपका अकाउंट अप्रूवल का इंतज़ार कर रहा है। जल्द ही चालू किया जाएगा।",errG:"कुछ गड़बड़ हो गई। दोबारा कोशिश करें।"},
+   mr:{tag:"बाइक रायडर्ससाठी पिकअप आणि ड्रॉप डिलिव्हरी.",sub:"नवी मुंबई",loginT:"रायडर लॉगिन",help1:"तुमच्या Google अकाउंटने एका टॅपमध्ये लॉगिन करा.",google:"Google ने पुढे जा",loading:"लॉगिन होत आहे…",demo:"डेमो मोड. खरे Google लॉगिन पुढच्या टप्प्यात जोडू.",fine:"पुढे गेल्यावर तुम्ही Dropbees च्या अटी आणि प्रायव्हसी पॉलिसीला सहमत आहात.",out:"लॉग आउट",cont:"पुढे जा",chlang:"भाषा बदला",langT:"भाषा निवडा",langH:"तुम्हाला ज्या भाषेत ॲप वापरायचा आहे ती निवडा.",
+     tHome:"होम",tTrips:"ट्रिप",tProf:"प्रोफाइल",h:"{n}, राइडसाठी तयार?",offT:"तुम्ही ऑफलाइन आहात",onT:"तुम्ही ऑनलाइन आहात",offS:"पिकअप रिक्वेस्ट मिळवण्यासाठी ऑनलाइन व्हा.",onS:"पिकअप रिक्वेस्ट खाली दिसतील.",goOn:"ऑनलाइन व्हा",goOff:"ऑफलाइन व्हा",needProf:"ऑनलाइन होण्यासाठी तुमची प्रोफाइल पूर्ण करा.",
+     todayT:"आज",trips:"ट्रिप",earn:"कमाई",waitT:"रिक्वेस्टची वाट पाहत आहे…",waitH:"ऑनलाइन राहा. नवीन रिक्वेस्ट इथे दिसतील.",demoReq:"डेमो: सध्या सॅम्पल रिक्वेस्ट दाखवल्या जात आहेत.",
+     reqT:"नवीन रिक्वेस्ट",pick:"पिकअप",drop:"ड्रॉप",upto:"10 किलोपर्यंत",km:"{n} किमी",youEarn:"तुमची कमाई",accept:"स्वीकारा",reject:"नाकारा",
+     actT:"सध्याची डिलिव्हरी",s1:"पिकअप पत्त्यावर जा.",s2:"पार्सल घेतले. आता डिलिव्हर करा.",btnP:"पार्सल घेतले",btnD:"डिलिव्हर झाले",callC:"ग्राहकाला कॉल करा",callR:"घेणाऱ्याला कॉल करा",doneT:"डिलिव्हरी पूर्ण झाली",doneH:"तुम्ही ₹{n} कमावले.",back:"होमवर परत",
+     tripsT:"माझ्या ट्रिप",week:"या आठवड्यात",total:"एकूण",noTr:"अजून ट्रिप नाही",noTrH:"पूर्ण झालेल्या डिलिव्हरी इथे दिसतील.",
+     profT:"माझी प्रोफाइल",name:"पूर्ण नाव",mobile:"मोबाइल नंबर",email:"ईमेल",bike:"बाइक नंबर",area:"कामाचा भाग",saveB:"बदल सेव्ह करा",savedOk:"प्रोफाइल सेव्ह झाली.",eName:"तुमचे नाव टाका.",eMob:"बरोबर 10 अंकी मोबाइल नंबर टाका.",eBike:"बरोबर बाइक नंबर टाका, उदा. MH 43 AB 1234.",setL:"सेटिंग्ज",langL:"भाषा",helpT:"मदत आणि सपोर्ट",q1:"रिक्वेस्ट कशा मिळतील?",a1:"प्रोफाइल पूर्ण करा आणि ऑनलाइन व्हा वर टॅप करा. नवीन रिक्वेस्ट होम स्क्रीनवर दिसतील.",q2:"माझी कमाई कशी ठरते?",a2:"प्रत्येक रिक्वेस्ट स्वीकारण्यापूर्वी तुमची कमाई दाखवते.",ver:"Dropbees रायडर · नवी मुंबई",selArea:"भाग निवडा",noticeT:"सूचना",closeL:"बंद करा",vOk:"अकाउंट मंजूर झाले",vPend:"तुमचे अकाउंट मंजुरीची वाट पाहत आहे. लवकरच सुरू केले जाईल.",errG:"काहीतरी चुकले. पुन्हा प्रयत्न करा."}
+  };
+  // NOTICE: riders ko dikhne wala message yahan badlein. Naya message dobara dikhane ke liye id badlein. Band karne ke liye on:false. type:'warn' = laal chetavni.
+  var NOTICE={on:true,type:'info',id:'r1',
+    title:{en:"Welcome, rider",hi:"राइडर, स्वागत है",mr:"रायडर, स्वागत आहे"},
+    t:{en:"Go online to start receiving pickup requests. Important updates will appear here.",hi:"पिकअप रिक्वेस्ट पाने के लिए ऑनलाइन हों। ज़रूरी सूचनाएँ यहाँ दिखेंगी।",mr:"पिकअप रिक्वेस्ट मिळवण्यासाठी ऑनलाइन व्हा. महत्त्वाच्या सूचना इथे दिसतील."}};
+  var AREAS=[["Airoli",0],["Ghansoli",3],["Kopar Khairane",6],["Turbhe",9],["Vashi",12],["Nerul",17],["Seawoods",19],["Belapur",22],["Kharghar",29],["Panvel",37]];
+  // Sample addresses and numbers for demo requests only.
+  var ADDR=["Shop 4, Sector 17 market","Flat 302, Sunrise Apartments, Sector 15","Office 12, Plot 8, Sector 30","Near main gate, Sector 9","House 21, Sector 11"];
+  var EARN_SHARE=0.8; // rider ko fare ka 80% (demo assumption)
+  var LOC={en:'en-IN',hi:'hi-IN',mr:'mr-IN'};
+  var NAV=['s-home','s-trips','s-prof'];
+  var BIKE_RE=/^[A-Za-z]{2}[ -]?\d{1,2}[ -]?[A-Za-z]{0,3}[ -]?\d{1,4}$/;
+  var lang='en',busy=false,cur='s-lang',tm=null,R={online:false,req:null,job:null};
+  try{var l0=localStorage.getItem('dropbees-rider-lang');if(l0&&T[l0])lang=l0}catch(e){}
+  function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+  function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  // DEMO: asli app mein naam aur email Google account se aayenge.
+  var P=Object.assign({name:'Demo Rider',phone:'',email:'demo.rider@gmail.com',bike:'',area:''},ld('dropbees-rider-profile',{}));
+  var TR=ld('dropbees-rider-trips',[]);
+  var FB=null,UID=null;
+  if(FIREBASE_CONFIG.apiKey.indexOf('PASTE')<0){var fapp=initializeApp(FIREBASE_CONFIG);FB={auth:getAuth(fapp),db:getFirestore(fapp)}}
+  function toast(m){var t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(function(){t.hidden=true},3500)}
+  function fbErr(err){console.error(err);toast(T[lang].errG)}
+  function afterLogin(){busy=false;$('google').disabled=false;apply();show('s-home')}
+  var unsubO=null,unsubJ=null,unsubN=null,unsubP=null,OPEN=[],SKIP={};
+  function tel(n){return /^\d{10}$/.test(n)?'tel:+91'+n:'tel:+910000000000'}
+  function mapJ(id,d){var km=Math.max(3,Math.abs(AREAS[d.pa][1]-AREAS[d.da][1]));return {docId:id,id:d.code,pa:d.pa,da:d.da,pd:d.pd,dd:d.dd,km:km,earn:Math.round(d.fare*EARN_SHARE),step:d.status==='picked'?1:0,status:d.status,cp:d.customerPhone||'',rp:d.rp||'',t:d.deliveredAt&&d.deliveredAt.toMillis?d.deliveredAt.toMillis():Date.now()}}
+  function pickReq(){R.req=R.job?null:(OPEN.filter(function(x){return !SKIP[x.docId]})[0]||null)}
+  function listenOpen(){
+    unsubO=onSnapshot(query(collection(FB.db,'bookings'),where('status','==','searching')),function(qs){
+      OPEN=qs.docs.map(function(x){return mapJ(x.id,x.data())});pickReq();if(cur==='s-home')renderHome();
+    },fbErr);
+  }
+  function goOffline(){R.online=false;R.req=null;OPEN=[];clearTimeout(tm);if(unsubO){unsubO();unsubO=null}renderHome()}
+  function listenMine(){
+    unsubJ=onSnapshot(query(collection(FB.db,'bookings'),where('riderId','==',UID)),function(qs){
+      var all=qs.docs.map(function(x){return mapJ(x.id,x.data())});
+      R.job=all.filter(function(j){return j.status==='accepted'||j.status==='picked'})[0]||null;
+      TR=all.filter(function(j){return j.status==='delivered'}).sort(function(a,b){return b.t-a.t});
+      pickReq();
+      if(cur==='s-home')renderHome();if(cur==='s-trips')renderTrips();
+    },fbErr);
+  }
+  function startSession(u){
+    UID=u.uid;P.email=u.email||P.email;if(!P.name||P.name==='Demo Rider')P.name=u.displayName||P.name;
+    var first=true;
+    function go(){if(first){first=false;listenMine();unsubN=onSnapshot(doc(FB.db,'config','notice'),function(s){var n=s.exists()&&s.data().rider;if(n){NOTICE=n;renderNotice()}},function(){});afterLogin()}}
+    unsubP=onSnapshot(doc(FB.db,'riders',UID),function(s){
+      if(s.exists())Object.assign(P,s.data());
+      P.email=u.email||P.email;
+      if(cur==='s-prof')fillProf();
+      go();
+    },function(err){console.error(err);go()});
+  }
+
+  var esc=function(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var steps=['s-lang','s-login','s-home','s-trips','s-prof','s-done'];
+  function first(){return P.name.trim().split(/\s+/)[0]||''}
+  function profOk(){return P.name&&/^[6-9]\d{9}$/.test(P.phone)&&BIKE_RE.test(P.bike)}
+  function title(){
+    var d=T[lang],m={'s-home':d.h.replace('{n}',first()),'s-trips':d.tripsT,'s-prof':d.profT,'s-done':d.doneT};
+    $('hh').textContent=m[cur]||'';
+  }
+  function show(id){
+    cur=id;
+    steps.forEach(function(x){$(x).classList.toggle('on',x===id)});
+    var app=document.querySelector('.app');
+    app.classList.toggle('home-mode',id!=='s-lang'&&id!=='s-login');
+    app.classList.toggle('has-nav',NAV.indexOf(id)>-1);
+    document.querySelectorAll('.tabs button').forEach(function(b){b.setAttribute('aria-current',b.getAttribute('data-tab')===id?'true':'false')});
+    title();
+    if(id==='s-home')renderHome();
+    if(id==='s-trips')renderTrips();
+    if(id==='s-prof')fillProf();
+    window.scrollTo(0,0);
+  }
+  function sameDay(t){return new Date(t).toDateString()===new Date().toDateString()}
+  function sum(a){return a.reduce(function(s,t){return s+t.earn},0)}
+  function dstr(t){return new Date(t).toLocaleString(LOC[lang],{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})}
+  function makeJob(){
+    var a=Math.floor(Math.random()*AREAS.length),b;
+    do{b=Math.floor(Math.random()*AREAS.length)}while(b===a);
+    var km=Math.max(3,Math.abs(AREAS[a][1]-AREAS[b][1])),fare=Math.round((40+8*km)/5)*5;
+    return {id:'DB'+Math.floor(10000+Math.random()*90000),pa:a,da:b,km:km,earn:Math.round(fare*EARN_SHARE),
+      pd:ADDR[Math.floor(Math.random()*ADDR.length)],dd:ADDR[Math.floor(Math.random()*ADDR.length)],step:0};
+  }
+  function schedule(){
+    clearTimeout(tm);
+    if(R.online&&!R.req&&!R.job)tm=setTimeout(function(){R.req=makeJob();if(cur==='s-home')renderHome()},4000);
+  }
+  function legs(j){
+    return '<div class="route"><div class="leg"><h3>'+T[lang].pick+'</h3><div class="m">'+AREAS[j.pa][0]+', '+esc(j.pd)+'</div></div>'+
+      '<div class="leg drop"><h3>'+T[lang].drop+'</h3><div class="m">'+AREAS[j.da][0]+', '+esc(j.dd)+'</div></div></div>';
+  }
+  function renderHome(){
+    var d=T[lang],on=R.online,h='',td=TR.filter(function(t){return sameDay(t.t)});
+    $('st').textContent=on?d.onT:d.offT;$('dot').className='dot'+(on?' on':'');
+    $('sts').textContent=on?d.onS:d.offS;$('tog').textContent=on?d.goOff:d.goOn;$('tog').disabled=!!R.job;
+    $('sl1').textContent=d.todayT+' · '+d.trips;$('sv1').textContent=td.length;
+    $('sl2').textContent=d.todayT+' · '+d.earn;$('sv2').textContent='₹'+sum(td);
+    if(R.job){
+      var j=R.job;
+      h='<div class="bk"><div class="top"><b>'+d.actT+' · '+esc(j.id)+'</b><span class="chip">₹'+j.earn+'</span></div>'+
+        '<div class="m">'+(j.step===0?d.s1:d.s2)+'</div>'+legs(j)+
+        '<div class="acts"><a class="link" href="'+tel(j.cp)+'">'+d.callC+'</a><a class="link" href="'+tel(j.rp)+'">'+d.callR+'</a></div>'+
+        '<button class="btn" data-act="'+(j.step===0?'picked':'done')+'">'+(j.step===0?d.btnP:d.btnD)+'</button></div>';
+    }else if(R.req){
+      var q=R.req;
+      h='<div class="bk"><div class="top"><b>'+d.reqT+'</b><span class="chip">'+d.youEarn+' ₹'+q.earn+'</span></div>'+legs(q)+
+        '<div class="m">'+d.km.replace('{n}',q.km)+' · '+d.upto+'</div>'+
+        '<div class="row2"><button class="btn" style="flex:2" data-act="accept">'+d.accept+'</button><button class="btn alt" style="flex:1" data-act="reject">'+d.reject+'</button></div></div>';
+    }else if(on){
+      h='<div class="empty"><b>'+d.waitT+'</b><p class="help" style="margin:0">'+d.waitH+'</p><p class="demo" style="margin:0">'+d.demoReq+'</p></div>';
+    }
+    $('hmain').innerHTML=h;
+  }
+  function renderTrips(){
+    var d=T[lang],wk=TR.filter(function(t){return t.t>=Date.now()-7*864e5}),td=TR.filter(function(t){return sameDay(t.t)});
+    function st(l,a){return '<div class="stat"><small>'+l+'</small><b>₹'+sum(a)+'</b><small>'+a.length+' '+d.trips+'</small></div>'}
+    $('tstats').innerHTML=st(d.todayT,td)+st(d.week,wk)+st(d.total,TR);
+    $('tlist').innerHTML=TR.length?TR.map(function(t){
+      return '<div class="bk"><div class="top"><b>'+AREAS[t.pa][0]+' → '+AREAS[t.da][0]+'</b><span class="chip">₹'+t.earn+'</span></div><div class="m">'+dstr(t.t)+'</div></div>';
+    }).join(''):'<div class="empty"><b>'+d.noTr+'</b><p class="help" style="margin:0">'+d.noTrH+'</p></div>';
+  }
+  function fillAreas(){
+    var el=$('pw'),c=el.value,h='<option value="">'+T[lang].selArea+'</option>';
+    AREAS.forEach(function(a,i){h+='<option value="'+i+'">'+a[0]+'</option>'});
+    el.innerHTML=h;el.value=c;
+  }
+  function fillProf(){
+    $('pn').value=P.name;$('pm').value=P.phone;$('pe').value=P.email;$('pb').value=P.bike;$('pw').value=P.area;
+    $('pl').value=lang;$('ep').textContent='';$('ep').className='err';$('vs').textContent=FB?(P.verified?T[lang].vOk:T[lang].vPend):'';
+    $('av').textContent=(P.name.trim().charAt(0)||'?').toUpperCase();
+  }
+  function renderNotice(){
+    var el=$('notice'),n=NOTICE,gone=false,msg=n.t[lang]||n.t.en;
+    try{gone=localStorage.getItem('dropbees-rider-notice')===n.id}catch(e){}
+    if(!n.on||gone||!msg){el.hidden=true;return}
+    el.hidden=false;el.className='notice'+(n.type==='warn'?' warn':'');
+    $('nt').textContent=(n.title&&(n.title[lang]||n.title.en))||T[lang].noticeT;
+    $('nm').textContent=msg;$('nx').setAttribute('aria-label',T[lang].closeL);
+  }
+  function apply(){
+    var d=T[lang];
+    document.documentElement.lang=lang;
+    document.querySelectorAll('[data-i]').forEach(function(el){el.textContent=d[el.getAttribute('data-i')]});
+    $('gtxt').textContent=busy?d.loading:d.google;
+    document.querySelectorAll('.lang').forEach(function(b){b.setAttribute('aria-checked',b.getAttribute('data-l')===lang?'true':'false')});
+    fillAreas();title();renderNotice();
+    if(cur==='s-home')renderHome();
+    if(cur==='s-trips')renderTrips();
+    if(cur==='s-prof')fillProf();
+  }
+  function saveLang(){try{localStorage.setItem('dropbees-rider-lang',lang)}catch(e){}}
+  document.querySelectorAll('.lang').forEach(function(b){b.addEventListener('click',function(){lang=b.getAttribute('data-l');apply()})});
+  $('cont').addEventListener('click',function(){saveLang();show('s-login')});
+  $('chlang').addEventListener('click',function(){show('s-lang')});
+  $('pl').addEventListener('change',function(){lang=$('pl').value;saveLang();apply()});
+  // DEMO: yahan asli Google Sign-In (Google Identity Services / Firebase Auth) judega.
+  $('google').addEventListener('click',function(){
+    if(busy)return;
+    busy=true;$('google').disabled=true;apply();
+    if(!FB){setTimeout(afterLogin,900);return}
+    signInWithPopup(FB.auth,new GoogleAuthProvider()).then(function(r){startSession(r.user)}).catch(function(err){busy=false;$('google').disabled=false;apply();fbErr(err)});
+  });
+  $('out').addEventListener('click',function(){R.online=false;R.req=null;R.job=null;clearTimeout(tm);if(FB&&UID){[unsubO,unsubJ,unsubN,unsubP].forEach(function(f){if(f)f()});unsubO=unsubJ=unsubN=unsubP=null;signOut(FB.auth);UID=null;TR=[];OPEN=[]}show('s-login')});
+  document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener('click',function(){show(b.getAttribute('data-tab'))})});
+  $('nx').addEventListener('click',function(){try{localStorage.setItem('dropbees-rider-notice',NOTICE.id)}catch(e){}$('notice').hidden=true});
+  $('pm').addEventListener('input',function(){$('pm').value=$('pm').value.replace(/\D/g,'')});
+
+  $('tog').addEventListener('click',function(){
+    if(R.job)return;
+    if(R.online){goOffline();return}
+    if(!profOk()){show('s-prof');$('ep').textContent=T[lang].needProf;return}
+    if(FB&&!P.verified){$('eh').textContent=T[lang].vPend;return}
+    $('eh').textContent='';
+    R.online=true;
+    if(FB){listenOpen()}else{schedule()}
+    renderHome();
+  });
+  $('hmain').addEventListener('click',function(e){
+    var b=e.target.closest('[data-act]');if(!b)return;var a=b.getAttribute('data-act');
+    if(FB){
+      var j=R.job,q=R.req;
+      if(a==='accept'&&q)updateDoc(doc(FB.db,'bookings',q.docId),{status:'accepted',riderId:UID,riderName:P.name,riderPhone:P.phone}).catch(fbErr);
+      if(a==='reject'&&q){SKIP[q.docId]=1;pickReq();renderHome()}
+      if(a==='picked'&&j)updateDoc(doc(FB.db,'bookings',j.docId),{status:'picked'}).catch(fbErr);
+      if(a==='done'&&j)updateDoc(doc(FB.db,'bookings',j.docId),{status:'delivered',deliveredAt:serverTimestamp()}).then(function(){$('dn').textContent=T[lang].doneH.replace('{n}',j.earn);show('s-done')}).catch(fbErr);
+      return;
+    }
+    if(a==='accept'){R.job=R.req;R.req=null;R.job.step=0}
+    if(a==='reject'){R.req=null;schedule()}
+    if(a==='picked'){R.job.step=1}
+    if(a==='done'){
+      var j=R.job;TR.unshift({id:j.id,t:Date.now(),pa:j.pa,da:j.da,earn:j.earn});sv('dropbees-rider-trips',TR);
+      R.job=null;$('dn').textContent=T[lang].doneH.replace('{n}',j.earn);schedule();show('s-done');return;
+    }
+    renderHome();
+  });
+  $('back').addEventListener('click',function(){show('s-home')});
+
+  $('psave').addEventListener('click',function(){
+    var d=T[lang],n=$('pn').value.trim(),m=$('pm').value,b=$('pb').value.trim().toUpperCase(),ep=$('ep');
+    ep.className='err';
+    if(!n){ep.textContent=d.eName;return}
+    if(!/^[6-9]\d{9}$/.test(m)){ep.textContent=d.eMob;return}
+    if(!BIKE_RE.test(b)){ep.textContent=d.eBike;return}
+    P.name=n;P.phone=m;P.bike=b;P.area=$('pw').value;sv('dropbees-rider-profile',P);if(FB&&UID)setDoc(doc(FB.db,'riders',UID),{name:P.name,phone:P.phone,bike:P.bike,area:P.area,email:P.email,verified:!!P.verified}).catch(fbErr);
+    $('pb').value=b;$('av').textContent=n.charAt(0).toUpperCase();title();
+    ep.className='err ok';ep.textContent=d.savedOk;
+  });
+  if(FB){
+    document.querySelectorAll('.demo').forEach(function(e){e.hidden=true});
+    onAuthStateChanged(FB.auth,function(u){if(u&&!UID&&!busy){busy=true;startSession(u)}});
+  }
+  apply();
+})();
+</script>
+</body>
+</html>
