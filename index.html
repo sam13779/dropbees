@@ -1,3 +1,311 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dropbees</title>
-<style>body{font-family:system-ui,sans-serif;background:#FFB81C;color:#2E2110;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0}main{text-align:center;padding:24px}h1{font-size:40px;margin:0 0 20px}a{display:block;margin:12px auto;padding:14px 28px;background:#2E2110;color:#FFB81C;border-radius:14px;text-decoration:none;font-weight:700;max-width:260px}</style></head>
-<body><main><h1>dropbees</h1><a href="customer.html">Customer app</a><a href="rider.html">Rider app</a></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DROPBEES – We Pick. We Drop. We Deliver.</title>
+<meta name="description" content="DROPBEES is a subscription-based hyperlocal pickup and drop delivery service in Navi Mumbai.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--y:#FFC928;--k:#171717;--l:#FFF9E8;--t:#2B2B2B;--m:#6b6558;--line:#eadfbf}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--t);background:#fff;line-height:1.5}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--k);outline-offset:2px}
+.top{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:10px 20px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:22px;text-decoration:none;color:var(--k)}
+.logo svg{width:32px;height:34px}
+nav{display:flex;gap:2px;flex:1;justify-content:center}
+nav a{padding:8px 12px;border-radius:99px;text-decoration:none;font-weight:600;font-size:14px}
+nav a.on,nav a:hover{background:var(--l)}
+#burger{display:none;background:none;border:0;font-size:26px;cursor:pointer;padding:0 6px}
+.btn{display:inline-block;border:0;border-radius:12px;padding:12px 22px;background:var(--y);color:var(--k);font:700 15px 'Poppins',sans-serif;cursor:pointer;text-decoration:none;text-align:center}
+.btn:hover{filter:brightness(.95)}.btn.dark{background:var(--k);color:var(--y)}.btn.line{background:none;border:2px solid var(--k)}.btn.sm{padding:8px 16px;font-size:13px}.btn[disabled]{opacity:.45;cursor:not-allowed}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}.narrow{max-width:720px}
+.sec{padding:48px 0}.alt{background:var(--l)}
+h1{font-size:clamp(30px,5vw,52px);line-height:1.1;margin:12px 0}h2{font-size:clamp(24px,3.5vw,34px);margin:0 0 8px}h3{margin:6px 0}
+.lead{font-size:18px;color:var(--m);margin:8px 0}.muted{color:var(--m);font-size:14px}
+.tag{display:inline-block;background:var(--k);color:var(--y);padding:6px 14px;border-radius:99px;font-weight:700;font-size:13px}
+.hgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:48px 20px}
+.art svg{width:100%;height:auto;animation:bob 3.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.between{justify-content:space-between}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px}
+.num{display:inline-flex;width:34px;height:34px;border-radius:50%;background:var(--y);align-items:center;justify-content:center;font-weight:800}
+.price{font-size:32px;font-weight:800}.ul{padding-left:18px;margin:8px 0}.ul li{margin:4px 0}
+.st{display:inline-block;padding:3px 12px;border-radius:99px;background:var(--y);font-weight:700;font-size:12px}.st.bad{background:#f3c9c4}.st.ok{background:#cfeccd}
+.f{display:grid;gap:14px}.f label{font-weight:600;font-size:13px;display:grid;gap:4px}
+.f input,.f select,.f textarea{width:100%;padding:12px;border:1.5px solid var(--line);border-radius:12px;font:inherit;background:#fff}
+.f input[type=checkbox],.f input[type=radio]{width:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.seg{display:flex;gap:10px;flex-wrap:wrap}.seg label{display:flex;flex-direction:row;gap:6px;align-items:center;padding:8px 12px;border:1.5px solid var(--line);border-radius:12px}
+.chk{display:flex!important;flex-direction:row!important;gap:8px;align-items:flex-start;font-weight:600}
+.err{color:#b3261e;font-weight:600;min-height:18px;margin:0}
+.est{background:var(--l);border-radius:14px;padding:14px 16px;display:grid;gap:6px}
+.tl{list-style:none;padding:0;margin:12px 0}.tl li{position:relative;padding:4px 0 10px 28px;color:var(--m);font-size:14px}
+.tl li::before{content:"";position:absolute;left:4px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--line)}
+.tl li::after{content:"";position:absolute;left:9px;top:22px;bottom:-4px;width:2px;background:var(--line)}.tl li:last-child::after{display:none}
+.tl li.done{color:var(--t)}.tl li.done::before{background:var(--y);box-shadow:0 0 0 2px var(--k)}.tl small{display:block;color:var(--m)}
+.otp{background:var(--k);color:var(--y);border-radius:14px;padding:12px 16px}.otp b{font-size:28px;letter-spacing:4px;margin-left:8px}.otp small{display:block;color:#ddd}
+.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;background:var(--y)}
+details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin:10px 0}summary{font-weight:700;cursor:pointer}
+footer{background:var(--k);color:#ddd;padding:32px 0;margin-top:40px}footer a{color:var(--y)}.fl{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--k);color:#fff;padding:12px 18px;border-radius:12px;z-index:50;max-width:90%;text-align:center}
+#toast[hidden]{display:none}
+@media(max-width:820px){
+  .hgrid{grid-template-columns:1fr}.two{grid-template-columns:1fr}
+  nav{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;padding:10px;border-bottom:1px solid var(--line)}
+  nav.open{display:flex}#burger{display:block}.top .btn.sm{margin-left:auto}
+}
+@media(prefers-reduced-motion:reduce){.art svg{animation:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="#/"><svg viewBox="0 0 48 52" aria-hidden="true"><path d="M24 2l20 12v24L24 50 4 38V14z" fill="#171717"/><path d="M24 12c5 7 8 11 8 16a8 8 0 0 1-16 0c0-5 3-9 8-16z" fill="#FFC928"/></svg>dropbees</a>
+  <nav id="nav" aria-label="Main">
+    <a href="#/" data-r="home">Home</a><a href="#/services" data-r="services">Services</a><a href="#/plans" data-r="plans">Plans</a>
+    <a href="#/book" data-r="book">Book</a><a href="#/orders" data-r="orders">Track Order</a><a href="#/business" data-r="business">Business</a><a href="#/contact" data-r="contact">Contact</a>
+  </nav>
+  <a id="authBtn" class="btn sm" href="#/login">Login</a>
+  <button id="burger" aria-label="Menu">☰</button>
+</header>
+<main id="app"></main>
+<footer id="foot"></footer>
+<div id="toast" role="status" hidden></div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged,sendPasswordResetEmail} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,doc,setDoc,addDoc,updateDoc,collection,query,where,onSnapshot,writeBatch,increment,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const FIREBASE_CONFIG={apiKey:"AIzaSyDu0bUwSw4DHgZIK-HyipCf7F1nXRsqPkg",authDomain:"dropbees-496fd.firebaseapp.com",projectId:"dropbees-496fd",storageBucket:"dropbees-496fd.firebasestorage.app",messagingSenderId:"494419837809",appId:"1:494419837809:web:38cb681b7de303ce666cd0"};
+const fapp=initializeApp(FIREBASE_CONFIG),auth=getAuth(fapp),db=getFirestore(fapp);
+
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>'₹'+Number(n||0).toLocaleString('en-IN');
+const tsd=t=>t&&t.toDate?t.toDate():null;
+const fmt=t=>{const d=tsd(t);return d?d.toLocaleString('en-IN',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'}):''};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,3800)};
+const okPhone=v=>/^[6-9]\d{9}$/.test(v);
+const idEmail=(type,v)=>type==='phone'?v.replace(/\D/g,'')+'@phone.dropbees.app':v.trim().toLowerCase();
+
+// Navi Mumbai areas: approximate position (km) along the corridor. Used to estimate distance (no map).
+const AREAS=[["Airoli",0],["Ghansoli",3],["Kopar Khairane",6],["Turbhe",9],["Vashi",12],["Nerul",17],["Seawoods",19],["Belapur",22],["Kharghar",29],["Panvel",37]];
+const STAGES=[['confirmed','Booking Confirmed'],['rider_assigned','Rider Assigned'],['picked_up','Parcel Picked Up'],['in_transit','In Transit'],['out_for_delivery','Out for Delivery'],['delivered','Delivered']];
+
+// Default settings. Admin panel can change all of these (stored in Firestore config/site). Prices below are SAMPLE values.
+const DEF={
+ pricing:{base:40,perKm:8,minKm:3,maxKm:40,freeKg:5,extraPerKg:10,maxKg:20},
+ plans:[
+  {id:'basic',name:'Basic',credits:20,priceM:399,priceY:3999,maxKm:10,maxKg:5,days:30,active:true,features:['Standard local delivery','Customer dashboard','Delivery status tracking']},
+  {id:'standard',name:'Standard',credits:50,priceM:899,priceY:8999,maxKm:15,maxKg:5,days:30,active:true,features:['Priority booking','Standard local delivery','Delivery status tracking','Customer support']},
+  {id:'premium',name:'Premium',credits:100,priceM:1599,priceY:15999,maxKm:25,maxKg:10,days:30,active:true,features:['Priority delivery','Business and personal deliveries','Delivery status tracking','Priority customer support']}],
+ services:[
+  {id:'parcel',name:'DROPBEES Parcel',desc:'Everyday parcels picked up and dropped across Navi Mumbai.',items:['Local parcel delivery','Small and medium packages','Online shopping returns','Gift delivery','Personal parcel delivery','Document courier'],active:true},
+  {id:'business',name:'DROPBEES Business',desc:'Regular deliveries for offices, shops and small businesses.',items:['Office document delivery','Shop-to-shop delivery','Business parcel delivery','CA and legal document pickup/drop','Retailer deliveries','Small business logistics'],active:true},
+  {id:'personal',name:'DROPBEES Personal',desc:'Pickup and drop for your personal errands.',items:['Pharmacy medicine pickup/drop (subject to applicable laws)','Mobile and laptop repair pickup/drop','Tailoring pickup/drop','Keys and personal belongings','Forgotten item delivery','Other permitted personal items'],active:true}],
+ payment:{upi:'',note:'Payment for non-subscription bookings is collected as instructed by our team after booking.'},
+ contact:{phone:'',email:'',whatsapp:''}
+};
+const clone=o=>JSON.parse(JSON.stringify(o));
+const mergeCfg=d=>({pricing:{...DEF.pricing,...(d.pricing||{})},plans:d.plans||DEF.plans,services:d.services||DEF.services,payment:{...DEF.payment,...(d.payment||{})},contact:{...DEF.contact,...(d.contact||{})}});
+
+let CFG=clone(DEF),U=null,PR=null,ORD=[],SEC={},SUBS=[],un=[],BILL='monthly',READY=false;
+const activeSub=()=>SUBS.find(s=>s.status==='active'&&tsd(s.expiresAt)>new Date()&&s.used<s.credits);
+const dist=(a,b)=>Math.max(CFG.pricing.minKm,Math.abs(AREAS[a][1]-AREAS[b][1]));
+const price=(km,kg)=>{const p=CFG.pricing;return Math.round((p.base+p.perKm*km+Math.max(0,kg-p.freeKg)*p.extraPerKg)/5)*5};
+const areaOpts=sel=>`<option value="">Select area</option>`+AREAS.map((a,i)=>`<option value="${i}"${String(sel)===String(i)?' selected':''}>${a[0]}</option>`).join('');
+
+const ART=`<svg viewBox="0 0 360 260" role="img" aria-label="Delivery rider carrying a parcel"><rect width="360" height="260" rx="28" fill="#FFC928"/><path d="M0 214h360v46H0z" fill="#171717" opacity=".12"/><circle cx="90" cy="200" r="28" fill="#171717"/><circle cx="90" cy="200" r="11" fill="#FFF9E8"/><circle cx="270" cy="200" r="28" fill="#171717"/><circle cx="270" cy="200" r="11" fill="#FFF9E8"/><path d="M90 200l50-60h70l30 60M140 140l-10-30h-24" fill="none" stroke="#171717" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><rect x="168" y="86" width="66" height="52" rx="8" fill="#fff" stroke="#171717" stroke-width="6"/><path d="M168 106h66M201 86v20" stroke="#171717" stroke-width="5"/><circle cx="168" cy="58" r="16" fill="#171717"/><path d="M160 76l-18 46 52 18" fill="none" stroke="#171717" stroke-width="12" stroke-linecap="round"/></svg>`;
+
+const idBlock=()=>`<div class="seg" role="radiogroup" aria-label="Login with"><label><input type="radio" name="type" value="phone" checked> Phone number</label><label><input type="radio" name="type" value="email"> Email</label></div><label><span id="idl">Phone number (10 digits)</span><input name="id" required inputmode="numeric" maxlength="10" autocomplete="username"></label>`;
+const lead=(type,fields,btn)=>`<form class="f card" data-form="lead" data-type="${type}">${fields}<p class="err" id="err"></p><button class="btn">${btn}</button></form>`;
+
+const PG={
+home:()=>{
+ const sv=CFG.services.filter(s=>s.active),pl=CFG.plans.filter(p=>p.active);
+ return `<section class="alt"><div class="wrap hgrid"><div><span class="tag">We Pick. We Drop. We Deliver.</span><h1>Your Everyday Pickup &amp; Drop Partner</h1><p class="lead">One Subscription. Multiple Deliveries. Zero Hassle.</p><p class="muted">Hyperlocal delivery in Navi Mumbai.</p><div class="row" style="margin-top:14px"><a class="btn" href="#/book">Book a Delivery</a><a class="btn line" href="#/plans">Explore Plans</a></div></div><div class="art">${ART}</div></div></section>
+<section class="sec"><div class="wrap"><h2>How DropBees works</h2><div class="grid">${[['1','Book online','Enter pickup, drop and parcel details.'],['2','We pick up','A rider collects the parcel from the pickup address.'],['3','We deliver','Your parcel is dropped at the receiver.'],['4','Confirm with OTP','The receiver shares a 3-digit OTP to confirm delivery.']].map(x=>`<div class="card"><span class="num">${x[0]}</span><h3>${x[1]}</h3><p class="muted">${x[2]}</p></div>`).join('')}</div></div></section>
+<section class="sec alt"><div class="wrap"><h2>Our Delivery Services</h2><div class="grid">${sv.map(s=>`<div class="card"><h3>${esc(s.name)}</h3><p class="muted">${esc(s.desc)}</p><ul class="ul">${s.items.slice(0,4).map(i=>`<li>${esc(i)}</li>`).join('')}</ul><a class="btn sm" href="#/book?cat=${esc(s.id)}">Book now</a></div>`).join('')}</div><p><a href="#/services"><b>See all services →</b></a></p></div></section>
+<section class="sec"><div class="wrap"><h2>Subscription Plans</h2><p class="muted">One subscription, many deliveries. Each delivery within plan limits uses 1 credit.</p><div class="grid">${pl.map(p=>`<div class="card"><h3>${esc(p.name)}</h3><div class="price">${money(p.priceM)}<small class="muted"> / month</small></div><p><b>${p.credits}</b> delivery credits per month</p></div>`).join('')}</div><p><a href="#/plans"><b>Compare plans →</b></a></p></div></section>
+<section class="sec alt"><div class="wrap"><h2>Why choose DropBees</h2><div class="grid">${[['Save on regular deliveries','Subscription credits make frequent pickups simple.'],['Clear price before you book','See the estimate and credit usage first.'],['Safe handover','A 3-digit delivery OTP confirms the parcel reached the receiver.'],['Local focus','Built for Navi Mumbai, from Airoli to Panvel.']].map(x=>`<div class="card"><h3>${x[0]}</h3><p class="muted">${x[1]}</p></div>`).join('')}</div></div></section>
+<section class="sec"><div class="wrap"><div class="card row between"><div><h2>Business delivery solutions</h2><p class="muted">Offices, shops, CAs and retailers: ask for a custom plan.</p></div><a class="btn dark" href="#/business">Register your business</a></div></div></section>
+<section class="sec"><div class="wrap narrow"><h2>FAQ</h2>${[['What is the delivery OTP?','It is the last 3 digits of your booking ID. Share it with the receiver. The rider enters it at delivery to confirm the parcel was handed over.'],['Which areas do you serve?','Navi Mumbai for now.'],['How do credits work?','Each booking within your plan limits uses 1 credit. Remaining credits show in your account.'],['Can I cancel a booking?','Yes, while the booking is still in Booking Confirmed status.'],['How do I pay for a subscription?','Send a subscription request. Our team shares payment details and activates the plan after payment.']].map(x=>`<details><summary>${x[0]}</summary><p class="muted">${x[1]}</p></details>`).join('')}</div></section>`;
+},
+services:()=>`<section class="sec"><div class="wrap"><h2>Our Delivery Services</h2><p class="muted">Pricing starts from ${money(CFG.pricing.base)} for a local delivery. The final price depends on distance and weight.</p><div class="grid">${CFG.services.filter(s=>s.active).map(s=>`<div class="card"><h3>${esc(s.name)}</h3><p class="muted">${esc(s.desc)}</p><ul class="ul">${s.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul><div class="row between"><span class="st ok">Available</span><a class="btn sm" href="#/book?cat=${esc(s.id)}">Book now</a></div></div>`).join('')}</div></div></section>`,
+plans:()=>`<section class="sec"><div class="wrap"><h2>Subscription Plans</h2><div class="seg" role="group" aria-label="Billing"><button class="btn sm${BILL==='monthly'?'':' line'}" data-act="bill" data-b="monthly">Monthly</button><button class="btn sm${BILL==='yearly'?'':' line'}" data-act="bill" data-b="yearly">Yearly</button></div><div class="grid">${CFG.plans.filter(p=>p.active).map(p=>{const y=BILL==='yearly';return `<div class="card"><h3>${esc(p.name)}</h3><div class="price">${money(y?p.priceY:p.priceM)}<small class="muted"> / ${y?'year':'month'}</small></div><p><b>${y?p.credits*12:p.credits}</b> delivery credits${y?` (${p.credits} per month)`:' per month'}</p><p class="muted">Up to ${p.maxKm} km and ${p.maxKg} kg per delivery</p><ul class="ul">${(p.features||[]).map(f=>`<li>${esc(f)}</li>`).join('')}</ul><button class="btn" data-act="sub" data-id="${esc(p.id)}">Subscribe</button></div>`}).join('')}</div><p class="muted">Renewal is manual: you choose to renew when your plan ends. Prices and limits are set by DropBees and may change.</p></div></section>`,
+book:q=>{
+ const ad=PR?.addresses||{},cat=q.get('cat');
+ const cats=CFG.services.filter(s=>s.active).map(s=>`<optgroup label="${esc(s.name)}">${s.items.map((i,n)=>`<option${s.id===cat&&n===0?' selected':''}>${esc(s.name+' – '+i)}</option>`).join('')}</optgroup>`).join('');
+ const saved=to=>['home','office'].map(k=>ad[k]&&ad[k].addr?`<button type="button" class="btn sm line" data-act="useaddr" data-k="${k}" data-to="${to}">Use ${k}</button>`:'').join('');
+ return `<section class="sec"><div class="wrap narrow"><h2>Book a Pickup</h2><p class="muted">Navi Mumbai only. Pickup and drop must be inside the service area.</p>
+<form class="f card" id="bookForm" data-form="book">
+<h3>Pickup</h3><div class="row">${saved('p')}</div>
+<div class="two"><label>Area<select name="pa" required>${areaOpts('')}</select></label><label>Pickup date<input type="date" name="date" min="${new Date().toISOString().slice(0,10)}" required></label></div>
+<label>Pickup address<textarea name="pAddr" rows="3" maxlength="200" required placeholder="Flat, building, street, landmark"></textarea></label>
+<div class="two"><label>Contact name<input name="pName" value="${esc(PR?.name||'')}" required></label><label>Contact mobile<input name="pPhone" value="${esc(PR?.phone||'')}" inputmode="numeric" maxlength="10" required></label></div>
+<label>Preferred pickup time<input type="time" name="time" required></label>
+<h3>Drop</h3><div class="row">${saved('d')}</div>
+<label>Area<select name="da" required>${areaOpts('')}</select></label>
+<label>Drop address<textarea name="dAddr" rows="3" maxlength="200" required placeholder="Flat, building, street, landmark"></textarea></label>
+<div class="two"><label>Receiver name<input name="rName" required></label><label>Receiver mobile<input name="rPhone" inputmode="numeric" maxlength="10" required></label></div>
+<h3>Parcel</h3>
+<label>Category<select name="cat" required>${cats}</select></label>
+<label>Parcel description<input name="desc" maxlength="120" required placeholder="e.g. documents, small box"></label>
+<label>Approximate weight (kg)<input name="kg" type="number" min="0.1" step="0.1" required></label>
+<label>Special instructions (optional)<textarea name="notes" rows="2" maxlength="200"></textarea></label>
+<div class="est" id="est"></div>
+<label class="chk"><input type="checkbox" name="agree" required> <span>I confirm the parcel has no prohibited or restricted items. Medicines are accepted only as permitted by law. <a href="#/terms" target="_blank">Read the policy</a></span></label>
+<p class="err" id="err"></p><button class="btn" id="sbtn">Confirm Booking</button></form></div></section>`;
+},
+orders:()=>{
+ const list=[...ORD].sort((a,b)=>(tsd(b.createdAt)||new Date())-(tsd(a.createdAt)||new Date()));
+ return `<section class="sec"><div class="wrap narrow"><h2>Track Your Delivery</h2><div class="f"><label>Search by booking ID<input id="q" placeholder="e.g. DB123456"></label></div>${list.length?list.map(o=>{
+  const code=SEC[o.id]?.code||'',cur=STAGES.findIndex(s=>s[0]===o.status),can=o.status==='confirmed',live=!['delivered','cancelled'].includes(o.status);
+  const stc=o.status==='cancelled'?'bad':o.status==='delivered'?'ok':'';
+  return `<div class="card oc" style="margin-top:16px" data-q="${esc(code.toLowerCase())}"><div class="row between"><b>${esc(code||'Booking')}</b><span class="st ${stc}">${esc(o.status==='cancelled'?'Cancelled':(STAGES[cur]||[])[1]||o.status)}</span></div><p>${esc(o.pa)} → ${esc(o.da)} · ${esc(o.pickupDate)} ${esc(o.pickupTime)}</p><p class="muted">${o.usesCredit?'1 subscription credit used':money(o.price)+' · '+(o.payment==='paid'?'Paid':'Payment pending')}${o.rider?' · Rider: '+esc(o.rider):''}</p>${o.status==='cancelled'?'':`<ul class="tl">${STAGES.map((s,i)=>`<li class="${i<=cur?'done':''}">${s[1]}<small>${fmt(o.times&&o.times[s[0]])}</small></li>`).join('')}</ul>`}${live&&code?`<div class="otp">Delivery OTP <b>${esc(code.slice(-3))}</b><small>Share only with the receiver. The rider enters it at delivery.</small></div>`:''}${can?`<p><button class="btn sm line" data-act="cancel" data-id="${o.id}">Cancel booking</button></p>`:''}</div>`}).join(''):`<div class="card" style="margin-top:16px"><p>No bookings yet.</p><a class="btn" href="#/book">Book a delivery</a></div>`}</div></section>`;
+},
+account:()=>{
+ const p=PR||{},ad=p.addresses||{},h=ad.home||{},o=ad.office||{};
+ const subs=[...SUBS].sort((a,b)=>(tsd(b.createdAt)||new Date())-(tsd(a.createdAt)||new Date()));
+ const cur=subs.find(s=>['active','pending'].includes(s.status)),act=cur&&cur.status==='active'&&tsd(cur.expiresAt)>new Date();
+ const done=ORD.filter(x=>x.status==='delivered').length,open=ORD.filter(x=>!['delivered','cancelled'].includes(x.status)).length;
+ const subHtml=!cur?`<p>No active subscription.</p><a class="btn sm" href="#/plans">View plans</a>`:cur.status==='pending'?`<p><b>${esc(cur.planName)}</b> request received (${money(cur.price)}).</p><p class="muted">It is activated after payment is confirmed by our team.${CFG.payment.upi?` Pay to UPI ID <b>${esc(CFG.payment.upi)}</b> and share the payment reference with us.`:' We will contact you with payment details.'}</p><button class="btn sm line" data-act="cancelsub" data-id="${cur.id}">Cancel request</button>`:`<p><b>${esc(cur.planName)}</b> · ${esc(cur.billing)}</p><div class="bar" aria-hidden="true"><i style="width:${Math.max(0,100-cur.used/cur.credits*100)}%"></i></div><p><b>${cur.credits-cur.used}</b> of ${cur.credits} credits left · ${act?'valid till '+tsd(cur.expiresAt).toLocaleDateString('en-IN'):'<span class="st bad">Expired</span>'}</p><p class="muted">Limits: ${cur.maxKm} km, ${cur.maxKg} kg per delivery.</p><a class="btn sm" href="#/plans">Renew or upgrade</a> <button class="btn sm line" data-act="cancelsub" data-id="${cur.id}">Cancel</button>`;
+ const pay=[...subs.filter(s=>s.paid).map(s=>`<li>${esc(s.planName)} subscription · ${money(s.price)} · paid</li>`),...ORD.filter(x=>!x.usesCredit).map(x=>`<li>${esc(SEC[x.id]?.code||'Booking')} · ${money(x.price)} · ${x.payment==='paid'?'paid':'pending'}</li>`)];
+ return `<section class="sec"><div class="wrap"><h2>My Account</h2><div class="grid"><div class="card"><h3>Overview</h3><p>Total bookings: <b>${ORD.length}</b></p><p>Pending deliveries: <b>${open}</b></p><p>Completed deliveries: <b>${done}</b></p><a class="btn sm" href="#/book">New booking</a></div><div class="card"><h3>Subscription</h3>${subHtml}</div></div>
+<div class="grid"><form class="f card" data-form="profile"><h3>Profile</h3><label>Name<input name="name" value="${esc(p.name||'')}" required></label><label>Mobile number<input name="phone" value="${esc(p.phone||'')}" inputmode="numeric" maxlength="10"></label><label>Email<input name="email" type="email" value="${esc(p.email||'')}"></label>
+<h3>Saved addresses</h3><label>Home area<select name="hA">${areaOpts(h.area)}</select></label><label>Home address<textarea name="hD" rows="3" maxlength="200">${esc(h.addr||'')}</textarea></label><label>Office area<select name="oA">${areaOpts(o.area)}</select></label><label>Office address<textarea name="oD" rows="3" maxlength="200">${esc(o.addr||'')}</textarea></label><p class="err" id="err"></p><button class="btn">Save profile</button></form>
+<div class="card"><h3>Payment history</h3>${pay.length?`<ul class="ul">${pay.join('')}</ul>`:'<p class="muted">No payments yet.</p>'}<h3>Support</h3><p class="muted">Need help with a booking?</p><a class="btn sm line" href="#/contact">Contact support</a><p style="margin-top:20px"><button class="btn dark sm" data-act="logout">Log out</button></p></div></div></div></section>`;
+},
+login:q=>`<section class="sec"><div class="wrap narrow"><div class="card"><h2>Welcome back</h2><form class="f" data-form="login" data-next="${esc(q.get('next')||'account')}">${idBlock()}<label>Password<input name="pw" type="password" required autocomplete="current-password"></label><p class="err" id="err"></p><button class="btn">Log in</button></form><p class="muted"><a href="#" data-act="forgot">Forgot password?</a> (email accounts only)</p><p>New here? <a href="#/signup"><b>Create an account</b></a></p></div></div></section>`,
+signup:()=>`<section class="sec"><div class="wrap narrow"><div class="card"><h2>Create your account</h2><form class="f" data-form="signup"><label>Full name<input name="name" required autocomplete="name"></label>${idBlock()}<label><span id="altl">Email (optional)</span><input name="alt" maxlength="60"></label><label>Password (min 6 characters)<input name="pw" type="password" minlength="6" required autocomplete="new-password"></label><label>Confirm password<input name="pw2" type="password" required autocomplete="new-password"></label><p class="err" id="err"></p><button class="btn">Sign up</button></form><p>Already have an account? <a href="#/login"><b>Log in</b></a></p></div></div></section>`,
+business:()=>`<section class="sec"><div class="wrap narrow"><h2>Business Registration</h2><p class="muted">Tell us about your business and expected deliveries. We will contact you with a customised plan.</p>${lead('business',`<label>Business name<input name="business" required></label><label>Owner name<input name="owner" required></label><label>Business type<select name="btype"><option>Office</option><option>Shop / Retail</option><option>CA / Legal</option><option>Small business</option><option>Other</option></select></label><label>Contact number<input name="phone" inputmode="numeric" maxlength="10" required></label><label>Email<input name="email" type="email"></label><label>Business address<textarea name="address" rows="3" required></textarea></label><label>GSTIN (optional)<input name="gstin" maxlength="15"></label><label>Expected monthly deliveries<input name="monthly" type="number" min="1"></label>`,'Submit')}</div></section>`,
+partner:()=>`<section class="sec"><div class="wrap narrow"><h2>Become a Delivery Partner</h2><p class="muted">Ride with DropBees in Navi Mumbai. Register your interest and we will contact you when the delivery partner app opens. Identity and document verification happens before you start.</p>${lead('partner',`<label>Full name<input name="name" required></label><label>Mobile number<input name="phone" inputmode="numeric" maxlength="10" required></label><label>Area<select name="area">${areaOpts('')}</select></label><label>Vehicle<select name="vehicle"><option>Bike</option><option>Scooter</option><option>Other</option></select></label>`,'Register interest')}</div></section>`,
+contact:()=>`<section class="sec"><div class="wrap narrow"><h2>Contact Us</h2>${CFG.contact.phone||CFG.contact.email||CFG.contact.whatsapp?`<p>${CFG.contact.phone?'Phone: <b>'+esc(CFG.contact.phone)+'</b><br>':''}${CFG.contact.whatsapp?'WhatsApp: <b>'+esc(CFG.contact.whatsapp)+'</b><br>':''}${CFG.contact.email?'Email: <b>'+esc(CFG.contact.email)+'</b>':''}</p>`:''}${lead('contact',`<label>Name<input name="name" required></label><label>Mobile number<input name="phone" inputmode="numeric" maxlength="10" required></label><label>Booking ID (optional)<input name="booking" maxlength="12"></label><label>Message<textarea name="message" rows="4" maxlength="500" required></textarea></label>`,'Send message')}</div></section>`,
+about:()=>`<section class="sec"><div class="wrap narrow"><h2>About DropBees</h2><p>DropBees is a subscription-based hyperlocal pickup and drop service for Navi Mumbai. We pick up parcels, documents and everyday items from your door and drop them where they need to go, quickly and reliably.</p><p class="muted">We Pick. We Drop. We Deliver.</p></div></section>`,
+terms:()=>`<section class="sec"><div class="wrap narrow"><h2>Terms &amp; Conditions</h2><p class="muted">Draft for review by a legal professional before launch.</p><ul class="ul"><li>Service is available only within Navi Mumbai.</li><li>Prices shown are estimates until confirmed by DropBees.</li><li>A subscription credit is used per booking within plan limits. Credits expire with the plan.</li><li>You can cancel a booking while its status is Booking Confirmed.</li><li>Delivery is confirmed with a 3-digit OTP shared with the receiver.</li><li>DropBees may refuse or cancel any booking that breaks these terms.</li></ul><h3>Prohibited and restricted items</h3><ul class="ul"><li>Illegal goods, narcotics and banned substances</li><li>Weapons, explosives, fireworks and flammable or hazardous materials</li><li>Live animals and perishable items that spoil quickly</li><li>Cash, jewellery and other high-value items</li><li>Medicines only as permitted by Indian law, with a valid prescription where required</li></ul></div></section>`,
+privacy:()=>`<section class="sec"><div class="wrap narrow"><h2>Privacy Policy</h2><p class="muted">Draft for review by a legal professional before launch.</p><ul class="ul"><li>We collect your name, contact details, addresses and booking details to run the service.</li><li>Pickup and drop contact details are shared with the assigned rider only to complete a delivery.</li><li>We do not store card details. Payments are handled by the payment provider.</li><li>You can ask us to correct or delete your data through the Contact page.</li></ul></div></section>`
+};
+
+const NEED=['book','orders','account'];
+function foot(){const c=CFG.contact;$('#foot').innerHTML=`<div class="wrap"><b style="color:#fff;font-size:18px">DROPBEES</b><p>We Pick. We Drop. We Deliver.</p><div class="fl"><a href="#/about">About</a><a href="#/partner">Become a Delivery Partner</a><a href="#/business">Business</a><a href="#/terms">Terms</a><a href="#/privacy">Privacy</a><a href="#/contact">Contact</a></div>${c.phone||c.email?`<p>${esc(c.phone)} ${esc(c.email)}</p>`:''}<p class="muted" style="color:#999">© DropBees, Navi Mumbai</p></div>`}
+function render(keep){
+ const [p,qs]=(location.hash.slice(2)||'').split('?'),q=new URLSearchParams(qs||''),name=PG[p||'home']?(p||'home'):'home';
+ $('#authBtn').textContent=U?'Account':'Login';$('#authBtn').href=U?'#/account':'#/login';
+ document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.r===name));
+ if(NEED.includes(name)&&!U){if(READY){location.hash='#/login?next='+name}else{$('#app').innerHTML='<div class="wrap sec">Loading…</div>'}return}
+ if((name==='login'||name==='signup')&&U){location.hash='#/account';return}
+ $('#app').innerHTML=PG[name](q);foot();
+ if(name==='book')calc();
+ if(!keep)window.scrollTo(0,0);
+}
+const refresh=()=>{const n=(location.hash.slice(2)||'home').split('?')[0];if(['home','plans','services','orders','account'].includes(n))render(true)};
+addEventListener('hashchange',()=>{$('#nav').classList.remove('open');render()});
+$('#burger').onclick=()=>$('#nav').classList.toggle('open');
+
+function calc(){
+ const f=$('#bookForm');if(!f)return;const v=n=>f.elements[n].value,box=$('#est'),btn=$('#sbtn'),pr=CFG.pricing;
+ if(v('pa')===''||v('da')===''){box.innerHTML='<span class="muted">Select pickup and drop areas to see your estimate.</span>';btn.disabled=true;return}
+ const was=f.elements.useCredit?f.elements.useCredit.checked:true,km=dist(+v('pa'),+v('da')),kg=parseFloat(v('kg'))||0,p=price(km,kg),sub=activeSub();
+ let h=`<div class="row between"><span>Distance (approx.)</span><b>${km} km</b></div><div class="row between"><span>Estimated price</span><b>${money(p)}</b></div>`,ok=kg>0;
+ if(km>pr.maxKm){h+=`<span class="err">Distance is above our ${pr.maxKm} km limit.</span>`;ok=false}
+ if(kg>pr.maxKg){h+=`<span class="err">Weight is above our ${pr.maxKg} kg limit.</span>`;ok=false}
+ if(sub&&km<=sub.maxKm&&kg<=sub.maxKg)h+=`<label class="chk"><input type="checkbox" name="useCredit"${was?' checked':''}> <span>Use 1 subscription credit (${sub.credits-sub.used} of ${sub.credits} left). No extra payment.</span></label>`;
+ else if(sub)h+=`<span class="muted">Credit cannot be used: your plan covers up to ${sub.maxKm} km and ${sub.maxKg} kg.</span>`;
+ else h+=`<span class="muted">No active subscription, so the estimated price applies. <a href="#/plans">See plans</a></span>`;
+ if(/medicine/i.test(v('cat')))h+=`<span class="muted">Medicine pickup/drop is allowed only as permitted by applicable laws.</span>`;
+ box.innerHTML=h;btn.disabled=!ok;
+}
+const authErr=e=>({'auth/email-already-in-use':'This phone/email is already registered. Please log in.','auth/invalid-credential':'Incorrect phone/email or password.','auth/wrong-password':'Incorrect phone/email or password.','auth/user-not-found':'Incorrect phone/email or password.','auth/weak-password':'Password must be at least 6 characters.','auth/network-request-failed':'Network problem. Check your internet.','auth/operation-not-allowed':'Email/Password sign-in is not enabled in Firebase yet.','auth/too-many-requests':'Too many attempts. Try again later.'}[e.code]||'Something went wrong. Please try again.');
+
+const forms={
+ async login(f){
+  const d=Object.fromEntries(new FormData(f)),err=$('#err');err.textContent='';
+  if(d.type==='phone'&&!okPhone(d.id.replace(/\D/g,'')))return err.textContent='Enter a valid 10-digit mobile number.';
+  try{await signInWithEmailAndPassword(auth,idEmail(d.type,d.id),d.pw);location.hash='#/'+f.dataset.next}catch(e){err.textContent=authErr(e)}
+ },
+ async signup(f){
+  const d=Object.fromEntries(new FormData(f)),err=$('#err');err.textContent='';const id=d.id.trim(),alt=d.alt.trim();
+  if(d.name.trim().length<2)return err.textContent='Enter your name.';
+  if(d.type==='phone'&&!okPhone(id.replace(/\D/g,'')))return err.textContent='Enter a valid 10-digit mobile number.';
+  if(d.type==='email'&&!/^\S+@\S+\.\S+$/.test(id))return err.textContent='Enter a valid email.';
+  if(d.pw!==d.pw2)return err.textContent='Passwords do not match.';
+  try{
+   const cr=await createUserWithEmailAndPassword(auth,idEmail(d.type,id),d.pw);
+   const phone=d.type==='phone'?id.replace(/\D/g,''):(okPhone(alt.replace(/\D/g,''))?alt.replace(/\D/g,''):''),email=d.type==='email'?id.toLowerCase():(/^\S+@\S+\.\S+$/.test(alt)?alt.toLowerCase():'');
+   await setDoc(doc(db,'users',cr.user.uid),{name:d.name.trim(),phone,email,loginType:d.type,addresses:{},createdAt:serverTimestamp()});
+   toast('Account created. Welcome to DropBees!');
+  }catch(e){err.textContent=authErr(e)}
+ },
+ async profile(f){
+  const d=Object.fromEntries(new FormData(f)),err=$('#err');err.textContent='';
+  if(d.phone&&!okPhone(d.phone))return err.textContent='Enter a valid 10-digit mobile number.';
+  try{await setDoc(doc(db,'users',U.uid),{name:d.name.trim(),phone:d.phone,email:d.email.trim(),addresses:{home:{area:d.hA,addr:d.hD.trim()},office:{area:d.oA,addr:d.oD.trim()}}},{merge:true});toast('Profile saved.')}catch(e){console.error(e);err.textContent='Could not save. Try again.'}
+ },
+ async lead(f){
+  const d=Object.fromEntries(new FormData(f)),err=$('#err');err.textContent='';
+  if(d.phone&&!okPhone(d.phone))return err.textContent='Enter a valid 10-digit mobile number.';
+  try{await addDoc(collection(db,'leads'),{...d,type:f.dataset.type,uid:U?U.uid:'',createdAt:serverTimestamp()});f.outerHTML='<div class="card"><h3>Thank you!</h3><p>We have received your details and will contact you soon.</p></div>'}catch(e){console.error(e);err.textContent='Could not send. Try again.'}
+ },
+ async book(f){
+  const v=n=>f.elements[n].value.trim(),err=$('#err');err.textContent='';
+  if(!okPhone(v('pPhone'))||!okPhone(v('rPhone')))return err.textContent='Enter valid 10-digit mobile numbers for pickup contact and receiver.';
+  if(new Date(v('date')+'T'+v('time'))<new Date(Date.now()-5*60000))return err.textContent='Pickup time cannot be in the past.';
+  const km=dist(+v('pa'),+v('da')),kg=parseFloat(v('kg')),p=price(km,kg),sub=activeSub();
+  if(!(kg>0)||km>CFG.pricing.maxKm||kg>CFG.pricing.maxKg)return err.textContent='Please check distance and weight limits.';
+  const useCredit=!!(f.elements.useCredit&&f.elements.useCredit.checked&&sub&&km<=sub.maxKm&&kg<=sub.maxKg);
+  const ref=doc(collection(db,'orders')),code='DB'+Math.floor(100000+Math.random()*900000),b=writeBatch(db);
+  b.set(ref,{uid:U.uid,customerName:PR?.name||'',customerPhone:v('pPhone'),pa:AREAS[+v('pa')][0],da:AREAS[+v('da')][0],pickupAddr:v('pAddr'),dropAddr:v('dAddr'),pName:v('pName'),pPhone:v('pPhone'),rName:v('rName'),rPhone:v('rPhone'),category:v('cat'),desc:v('desc'),kg,km,price:p,usesCredit:useCredit,subId:useCredit?sub.id:'',pickupDate:v('date'),pickupTime:v('time'),notes:v('notes'),status:'confirmed',payment:useCredit?'credit':'unpaid',rider:'',times:{confirmed:serverTimestamp()},createdAt:serverTimestamp()});
+  b.set(doc(db,'secrets',ref.id),{uid:U.uid,code});
+  if(useCredit)b.update(doc(db,'subscriptions',sub.id),{used:increment(1)});
+  const btn=$('#sbtn');btn.disabled=true;
+  try{await b.commit();$('#app').innerHTML=`<section class="sec"><div class="wrap narrow"><div class="card"><h2>Booking confirmed</h2><p>Your booking ID</p><p class="price">${code}</p><div class="otp">Delivery OTP <b>${code.slice(-3)}</b><small>Last 3 digits of your booking ID. Share only with the receiver. The rider enters it at delivery.</small></div><p>${useCredit?'1 subscription credit used.':'Estimated price '+money(p)+'. '+esc(CFG.payment.note)}</p><div class="row"><a class="btn" href="#/orders">Track order</a><a class="btn line" href="#/book">Book another</a></div></div></div></section>`;window.scrollTo(0,0)}catch(e){console.error(e);btn.disabled=false;err.textContent='Could not confirm the booking. Please try again.'}
+ }
+};
+const acts={
+ bill:b=>{BILL=b.dataset.b;render(true)},
+ async sub(b){
+  if(!U){location.hash='#/login?next=plans';return}
+  if(SUBS.some(s=>s.status==='pending'))return toast('You already have a pending subscription request.');
+  const p=CFG.plans.find(x=>x.id===b.dataset.id);if(!p)return;const y=BILL==='yearly';
+  try{await addDoc(collection(db,'subscriptions'),{uid:U.uid,userName:PR?.name||'',phone:PR?.phone||'',planId:p.id,planName:p.name,billing:BILL,price:y?p.priceY:p.priceM,credits:y?p.credits*12:p.credits,maxKm:p.maxKm,maxKg:p.maxKg,days:y?365:(p.days||30),status:'pending',used:0,createdAt:serverTimestamp()});toast('Request sent. See your account for payment steps.');location.hash='#/account'}catch(e){console.error(e);toast('Could not send the request. Try again.')}
+ },
+ useaddr:b=>{const a=(PR?.addresses||{})[b.dataset.k]||{},f=$('#bookForm'),p=b.dataset.to==='p';f.elements[p?'pa':'da'].value=a.area||'';f.elements[p?'pAddr':'dAddr'].value=a.addr||'';calc()},
+ async cancel(b){if(!confirm('Cancel this booking? If a subscription credit was used, our team will restore it.'))return;try{await updateDoc(doc(db,'orders',b.dataset.id),{status:'cancelled','times.cancelled':serverTimestamp()});toast('Booking cancelled.')}catch(e){console.error(e);toast('Could not cancel. It may already be in progress.')}},
+ async cancelsub(b){if(!confirm('Cancel this subscription?'))return;try{await updateDoc(doc(db,'subscriptions',b.dataset.id),{status:'cancelled'});toast('Subscription cancelled.')}catch(e){console.error(e);toast('Could not cancel. Try again.')}},
+ async forgot(){const e=prompt('Enter your account email');if(!e)return;try{await sendPasswordResetEmail(auth,e.trim());toast('If the email exists, a reset link was sent.')}catch(x){toast('Could not send reset email.')}},
+ logout:()=>signOut(auth).then(()=>{location.hash='#/'})
+};
+const app=$('#app');
+app.addEventListener('submit',e=>{e.preventDefault();const f=forms[e.target.dataset.form];if(f)f(e.target)});
+app.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(b){e.preventDefault();acts[b.dataset.act]&&acts[b.dataset.act](b)}});
+app.addEventListener('input',e=>{
+ if(e.target.closest('#bookForm'))calc();
+ if(e.target.id==='q'){const s=e.target.value.trim().toLowerCase();document.querySelectorAll('.oc').forEach(c=>c.hidden=!!s&&!c.dataset.q.includes(s))}
+ if(e.target.name==='id')e.target.value=e.target.inputMode==='numeric'?e.target.value.replace(/\D/g,''):e.target.value;
+});
+app.addEventListener('change',e=>{
+ if(e.target.closest('#bookForm'))calc();
+ if(e.target.name==='type'){const em=e.target.value==='email',i=e.target.form.elements.id;$('#idl').textContent=em?'Email address':'Phone number (10 digits)';i.value='';i.inputMode=em?'email':'numeric';i.maxLength=em?60:10;i.type=em?'email':'text';const al=$('#altl');if(al)al.textContent=em?'Phone number (optional)':'Email (optional)'}
+});
+
+onSnapshot(doc(db,'config','site'),s=>{if(s.exists())CFG=mergeCfg(s.data());refresh()},()=>{});
+onAuthStateChanged(auth,u=>{
+ un.forEach(f=>f());un=[];U=u;PR=null;ORD=[];SEC={};SUBS=[];READY=true;
+ if(u){
+  const er=e=>console.error(e),mine=c=>query(collection(db,c),where('uid','==',u.uid));
+  un.push(onSnapshot(doc(db,'users',u.uid),s=>{PR=s.exists()?s.data():{name:'',phone:'',email:'',addresses:{}};refresh()},er));
+  un.push(onSnapshot(mine('orders'),s=>{ORD=s.docs.map(d=>({id:d.id,...d.data()}));refresh()},er));
+  un.push(onSnapshot(mine('secrets'),s=>{SEC={};s.docs.forEach(d=>SEC[d.id]=d.data());refresh()},er));
+  un.push(onSnapshot(mine('subscriptions'),s=>{SUBS=s.docs.map(d=>({id:d.id,...d.data()}));refresh()},er));
+ }
+ render(true);
+});
+render();
+</script>
+</body>
+</html>
