@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>DROPBEES Admin</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg viewBox='0 0 48 52' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M24 2l20 12v24L24 50 4 38V14z' fill='%23171717'/%3E%3Cellipse cx='19' cy='20' rx='4.2' ry='7.5' transform='rotate(-22 19 20)' fill='%23fff' opacity='.92'/%3E%3Cellipse cx='27' cy='19' rx='4.2' ry='7.5' transform='rotate(18 27 19)' fill='%23fff' opacity='.92'/%3E%3Cpath d='M13 30l-5-2.2v4.4z' fill='%23E3A800'/%3E%3Cellipse cx='22' cy='30' rx='10' ry='7.5' fill='%23FFC928'/%3E%3Cpath d='M17 24.2v11.6M22.5 22.8v14.4M28 24v12' stroke='%23171717' stroke-width='2.6'/%3E%3Ccircle cx='33.5' cy='30' r='4.6' fill='%23FFC928'/%3E%3Ccircle cx='35' cy='29' r='1.1' fill='%23171717'/%3E%3Cpath d='M33 25.8q.5-4 3-5M35.5 26.6q2.5-2.5 4.5-1.8' fill='none' stroke='%23FFC928' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--y:#FFC928;--k:#171717;--l:#FFF9E8;--t:#2B2B2B;--m:#6b6558;--line:#eadfbf}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Poppins',system-ui,sans-serif;color:var(--t);background:#faf7ee;line-height:1.45}
+:focus-visible{outline:3px solid var(--k);outline-offset:2px}
+header{background:var(--k);color:#fff;display:flex;align-items:center;gap:12px;padding:10px 16px;position:sticky;top:0;z-index:10}
+header b{color:var(--y);font-size:18px}header span{margin-left:auto;font-size:12px;opacity:.8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:45vw}
+.btn{border:0;border-radius:10px;padding:10px 16px;background:var(--y);color:var(--k);font:700 14px 'Poppins',sans-serif;cursor:pointer}.btn.sm{padding:6px 12px;font-size:12px}.btn.line{background:none;border:2px solid var(--k)}.btn.dark{background:var(--k);color:var(--y)}.btn[disabled]{opacity:.5}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:50px;z-index:9}
+.tabs button{border:0;background:none;padding:8px 14px;border-radius:99px;font:600 14px 'Poppins',sans-serif;cursor:pointer;white-space:nowrap}.tabs button.on{background:var(--y)}
+.wrap{max-width:1000px;margin:0 auto;padding:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}.stat b{display:block;font-size:26px}.stat small{color:var(--m)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.between{justify-content:space-between}
+input,select,textarea{padding:9px 10px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff;max-width:100%}
+textarea{width:100%}label{display:grid;gap:3px;font-size:12px;font-weight:600}
+.f{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.st{display:inline-block;padding:2px 10px;border-radius:99px;background:var(--y);font-weight:700;font-size:11px}.st.bad{background:#f3c9c4}.st.ok{background:#cfeccd}
+.muted{color:var(--m);font-size:13px}.err{color:#b3261e;font-weight:600}
+details{margin:6px 0}summary{cursor:pointer;font-weight:600;font-size:13px}
+h2{margin:4px 0}h3{margin:12px 0 4px}
+#gate{max-width:420px;margin:40px auto;padding:0 16px}#gate .f{grid-template-columns:1fr}
+code{background:#eee;padding:2px 6px;border-radius:6px;word-break:break-all}
+#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--k);color:#fff;padding:10px 16px;border-radius:10px;z-index:50}#toast[hidden]{display:none}
+</style>
+</head>
+<body>
+<header><svg width="28" height="30" viewBox="0 0 48 52" aria-hidden="true"><path d="M24 2l20 12v24L24 50 4 38V14z" fill="#171717"/><ellipse cx="19" cy="20" rx="4.2" ry="7.5" transform="rotate(-22 19 20)" fill="#fff" opacity=".92"/><ellipse cx="27" cy="19" rx="4.2" ry="7.5" transform="rotate(18 27 19)" fill="#fff" opacity=".92"/><path d="M13 30l-5-2.2v4.4z" fill="#E3A800"/><ellipse cx="22" cy="30" rx="10" ry="7.5" fill="#FFC928"/><path d="M17 24.2v11.6M22.5 22.8v14.4M28 24v12" stroke="#171717" stroke-width="2.6"/><circle cx="33.5" cy="30" r="4.6" fill="#FFC928"/><circle cx="35" cy="29" r="1.1" fill="#171717"/><path d="M33 25.8q.5-4 3-5M35.5 26.6q2.5-2.5 4.5-1.8" fill="none" stroke="#FFC928" stroke-width="1.4" stroke-linecap="round"/></svg><b>dropbees admin</b><span id="who"></span><button class="btn sm" id="out" hidden>Log out</button></header>
+<div id="gate" hidden>
+  <div class="card"><h2 id="gt">Admin login</h2>
+  <form class="f" id="gf"><label>Email<input name="email" type="email" required autocomplete="username"></label><label>Password<input name="pw" type="password" minlength="6" required autocomplete="current-password"></label><p class="err" id="ge"></p><button class="btn">Continue</button></form>
+  <p class="muted"><a href="#" id="gsw">Create an admin login</a> (it works only after you add the UID to the admins collection)</p></div>
+</div>
+<div id="denied" class="wrap" hidden></div>
+<div id="main" hidden>
+  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+  <div class="wrap" id="view"></div>
+</div>
+<div id="toast" role="status" hidden></div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc,updateDoc,collection,onSnapshot,writeBatch,increment,serverTimestamp,Timestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const FIREBASE_CONFIG={apiKey:"AIzaSyDu0bUwSw4DHgZIK-HyipCf7F1nXRsqPkg",authDomain:"dropbees-496fd.firebaseapp.com",projectId:"dropbees-496fd",storageBucket:"dropbees-496fd.firebasestorage.app",messagingSenderId:"494419837809",appId:"1:494419837809:web:38cb681b7de303ce666cd0"};
+const fapp=initializeApp(FIREBASE_CONFIG),auth=getAuth(fapp),db=getFirestore(fapp);
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>'₹'+Number(n||0).toLocaleString('en-IN');
+const tsd=t=>t&&t.toDate?t.toDate():null;
+const fmt=t=>{const d=tsd(t);return d?d.toLocaleString('en-IN',{day:'numeric',month:'short',year:'2-digit',hour:'numeric',minute:'2-digit'}):'—'};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,3500)};
+const newest=(a,b)=>(tsd(b.createdAt)||new Date())-(tsd(a.createdAt)||new Date());
+const ST=[['confirmed','Booking Confirmed'],['rider_assigned','Rider Assigned'],['picked_up','Parcel Picked Up'],['in_transit','In Transit'],['out_for_delivery','Out for Delivery'],['delivered','Delivered'],['cancelled','Cancelled']];
+const stName=s=>(ST.find(x=>x[0]===s)||[0,s])[1];
+
+const DEF={
+ pricing:{base:40,perKm:8,minKm:3,maxKm:40,freeKg:5,extraPerKg:10,maxKg:20},
+ plans:[
+  {id:'basic',name:'Basic',credits:20,priceM:399,priceY:3999,maxKm:10,maxKg:5,days:30,active:true,features:['Standard local delivery','Customer dashboard','Delivery status tracking']},
+  {id:'standard',name:'Standard',credits:50,priceM:899,priceY:8999,maxKm:15,maxKg:5,days:30,active:true,features:['Priority booking','Standard local delivery','Delivery status tracking','Customer support']},
+  {id:'premium',name:'Premium',credits:100,priceM:1599,priceY:15999,maxKm:25,maxKg:10,days:30,active:true,features:['Priority delivery','Business and personal deliveries','Delivery status tracking','Priority customer support']}],
+ services:[
+  {id:'parcel',name:'DROPBEES Parcel',desc:'Everyday parcels picked up and dropped across Navi Mumbai.',items:['Local parcel delivery','Small and medium packages','Online shopping returns','Gift delivery','Personal parcel delivery','Document courier'],active:true},
+  {id:'business',name:'DROPBEES Business',desc:'Regular deliveries for offices, shops and small businesses.',items:['Office document delivery','Shop-to-shop delivery','Business parcel delivery','CA and legal document pickup/drop','Retailer deliveries','Small business logistics'],active:true},
+  {id:'personal',name:'DROPBEES Personal',desc:'Pickup and drop for your personal errands.',items:['Pharmacy medicine pickup/drop (subject to applicable laws)','Mobile and laptop repair pickup/drop','Tailoring pickup/drop','Keys and personal belongings','Forgotten item delivery','Other permitted personal items'],active:true}],
+ payment:{upi:'',note:'Payment for non-subscription bookings is collected as instructed by our team after booking.'},
+ contact:{phone:'',email:'',whatsapp:''}
+};
+const mergeCfg=d=>({pricing:{...DEF.pricing,...(d.pricing||{})},plans:d.plans||DEF.plans,services:d.services||DEF.services,payment:{...DEF.payment,...(d.payment||{})},contact:{...DEF.contact,...(d.contact||{})}});
+
+let CFG=JSON.parse(JSON.stringify(DEF)),ORD=[],SEC={},USERS=[],SUBS=[],LEADS=[],un=[],tab='dash',signup=false;
+const TABS=[['dash','Dashboard'],['orders','Orders'],['subs','Subscriptions'],['cust','Customers'],['leads','Leads & Messages'],['set','Settings']];
+
+const V={
+dash:()=>{
+ const rev=ORD.filter(o=>o.payment==='paid').reduce((s,o)=>s+(o.price||0),0)+SUBS.filter(s=>s.paid).reduce((s,x)=>s+(x.price||0),0);
+ const c=f=>ORD.filter(f).length,now=new Date();
+ const cards=[['Customers',USERS.length],['Active subscriptions',SUBS.filter(s=>s.status==='active'&&tsd(s.expiresAt)>now).length],['Pending subscriptions',SUBS.filter(s=>s.status==='pending').length],['Total bookings',ORD.length],['Pending deliveries',c(o=>!['delivered','cancelled'].includes(o.status))],['Completed',c(o=>o.status==='delivered')],['Cancelled',c(o=>o.status==='cancelled')],['Revenue (paid)',money(rev)]];
+ return `<h2>Dashboard</h2><div class="grid">${cards.map(x=>`<div class="stat"><b>${x[1]}</b><small>${x[0]}</small></div>`).join('')}</div><p class="muted">Revenue counts orders marked Paid and activated subscriptions.</p>`;
+},
+orders:()=>`<h2>Orders</h2><div class="row"><select id="fs"><option value="">All statuses</option>${ST.map(s=>`<option value="${s[0]}">${s[1]}</option>`).join('')}</select><input id="fq" placeholder="Search booking ID, name, phone"></div>${[...ORD].sort(newest).map(o=>{
+ const code=SEC[o.id]?.code||'';
+ return `<div class="card oc" data-s="${esc(o.status)}" data-q="${esc((code+' '+o.customerName+' '+o.customerPhone+' '+o.rName+' '+o.rPhone).toLowerCase())}"><div class="row between"><b>${esc(code||'—')}</b><span class="st ${o.status==='cancelled'?'bad':o.status==='delivered'?'ok':''}">${esc(stName(o.status))}</span></div>
+ <div>${esc(o.pa)} → ${esc(o.da)} · ${o.kg} kg · ${o.usesCredit?'1 credit':money(o.price)} · ${esc(o.pickupDate)} ${esc(o.pickupTime)}</div>
+ <div class="muted">${esc(o.customerName)} · ${esc(o.customerPhone)} · booked ${fmt(o.createdAt)}</div>
+ <details><summary>Details</summary><p><b>Pickup:</b> ${esc(o.pickupAddr)} (${esc(o.pName)}, ${esc(o.pPhone)})<br><b>Drop:</b> ${esc(o.dropAddr)} (${esc(o.rName)}, ${esc(o.rPhone)})<br><b>Category:</b> ${esc(o.category)}<br><b>Parcel:</b> ${esc(o.desc)}<br><b>Notes:</b> ${esc(o.notes||'—')}<br><b>Delivery OTP:</b> ${esc(code.slice(-3))} (last 3 digits of booking ID)</p></details>
+ <div class="row"><select data-f="status">${ST.map(s=>`<option value="${s[0]}"${s[0]===o.status?' selected':''}>${s[1]}</option>`).join('')}</select><input data-f="rider" placeholder="Rider name / phone" value="${esc(o.rider||'')}"><select data-f="payment">${['unpaid','paid','credit'].map(p=>`<option${p===o.payment?' selected':''}>${p}</option>`).join('')}</select><button class="btn sm" data-act="saveOrder" data-id="${o.id}">Save</button>${o.status==='cancelled'&&o.usesCredit&&!o.creditRestored?`<button class="btn sm line" data-act="restore" data-id="${o.id}">Restore credit</button>`:''}</div></div>`}).join('')||'<p class="muted">No orders yet.</p>'}`,
+subs:()=>`<h2>Subscriptions</h2>${[...SUBS].sort((a,b)=>(a.status==='pending'?0:1)-(b.status==='pending'?0:1)||newest(a,b)).map(s=>`<div class="card"><div class="row between"><b>${esc(s.planName)} · ${esc(s.billing)}</b><span class="st ${s.status==='cancelled'?'bad':s.status==='active'?'ok':''}">${esc(s.status)}</span></div><div>${esc(s.userName)} · ${esc(s.phone||'')} · ${money(s.price)} · credits ${s.used}/${s.credits}</div><div class="muted">Requested ${fmt(s.createdAt)}${s.status==='active'?' · expires '+fmt(s.expiresAt):''}${s.payRef?' · ref '+esc(s.payRef):''}</div><div class="row" style="margin-top:8px">${s.status==='pending'?`<input data-f="ref" placeholder="Payment reference"><button class="btn sm" data-act="activate" data-id="${s.id}">Mark paid &amp; activate</button>`:''}${['pending','active'].includes(s.status)?`<button class="btn sm line" data-act="cancelsub" data-id="${s.id}">Cancel</button>`:''}</div></div>`).join('')||'<p class="muted">No subscriptions yet.</p>'}`,
+cust:()=>`<h2>Customers (${USERS.length})</h2>${[...USERS].sort(newest).map(u=>{const n=ORD.filter(o=>o.uid===u.id).length,s=SUBS.find(x=>x.uid===u.id&&x.status==='active');return `<div class="card"><b>${esc(u.name||'—')}</b> <span class="muted">${esc(u.loginType||'')}</span><div>${esc(u.phone||'—')} · ${esc(u.email||'—')}</div><div class="muted">Joined ${fmt(u.createdAt)} · ${n} bookings · ${s?esc(s.planName)+' plan':'no active plan'}</div></div>`}).join('')}`,
+leads:()=>`<h2>Leads &amp; Messages</h2>${[...LEADS].sort(newest).map(l=>`<div class="card"><div class="row between"><b>${esc(l.type)}</b><span class="muted">${fmt(l.createdAt)}</span></div>${Object.entries(l).filter(([k])=>!['type','uid','createdAt','id'].includes(k)&&l[k]).map(([k,v])=>`<div><span class="muted">${esc(k)}:</span> ${esc(v)}</div>`).join('')}</div>`).join('')||'<p class="muted">Nothing yet.</p>'}`,
+set:()=>{
+ const p=CFG.pricing,pf=[['base','Base fare (₹)'],['perKm','Per km (₹)'],['minKm','Minimum billable km'],['maxKm','Maximum distance (km)'],['freeKg','Free weight (kg)'],['extraPerKg','Extra per kg above free weight (₹)'],['maxKg','Maximum parcel weight (kg)']];
+ return `<h2>Settings</h2><p class="muted">Changes appear on the customer website. Prices shown first time are sample values. Set your own and press Save.</p>
+<div class="card"><h3>Delivery pricing</h3><div class="f">${pf.map(x=>`<label>${x[1]}<input type="number" step="any" data-pr="${x[0]}" value="${p[x[0]]}"></label>`).join('')}</div></div>
+<div class="card"><h3>Subscription plans</h3>${CFG.plans.map((x,i)=>`<div class="planc card" data-i="${i}"><div class="f"><label>Name<input name="name" value="${esc(x.name)}"></label><label>Credits per month<input name="credits" type="number" value="${x.credits}"></label><label>Monthly price (₹)<input name="priceM" type="number" value="${x.priceM}"></label><label>Yearly price (₹)<input name="priceY" type="number" value="${x.priceY}"></label><label>Max distance (km)<input name="maxKm" type="number" value="${x.maxKm}"></label><label>Max weight (kg)<input name="maxKg" type="number" value="${x.maxKg}"></label><label>Validity (days, monthly)<input name="days" type="number" value="${x.days||30}"></label><label>Visible<select name="active"><option value="1"${x.active?' selected':''}>Yes</option><option value="0"${x.active?'':' selected'}>No</option></select></label></div><label>Features (one per line)<textarea name="features" rows="4">${esc((x.features||[]).join('\n'))}</textarea></label></div>`).join('')}</div>
+<div class="card"><h3>Services</h3>${CFG.services.map((x,i)=>`<div class="svc card" data-i="${i}"><div class="f"><label>Name<input name="name" value="${esc(x.name)}"></label><label>Visible<select name="active"><option value="1"${x.active?' selected':''}>Yes</option><option value="0"${x.active?'':' selected'}>No</option></select></label></div><label>Description<input name="desc" value="${esc(x.desc)}"></label><label>Services (one per line)<textarea name="items" rows="6">${esc(x.items.join('\n'))}</textarea></label></div>`).join('')}</div>
+<div class="card"><h3>Payment and contact</h3><div class="f"><label>UPI ID (shown for subscription payments)<input id="upi" value="${esc(CFG.payment.upi)}"></label><label>Contact phone<input id="cph" value="${esc(CFG.contact.phone)}"></label><label>WhatsApp<input id="cwa" value="${esc(CFG.contact.whatsapp)}"></label><label>Contact email<input id="cem" value="${esc(CFG.contact.email)}"></label></div><label>Payment note shown after booking<textarea id="pnote" rows="2">${esc(CFG.payment.note)}</textarea></label></div>
+<button class="btn" data-act="saveCfg">Save all settings</button>`;
+}
+};
+
+function draw(force){
+ const a=document.activeElement,v=$('#view');
+ if(!force&&tab==='set')return;
+ if(!force&&a&&v.contains(a)&&['INPUT','SELECT','TEXTAREA'].includes(a.tagName))return;
+ v.innerHTML=V[tab]();
+ $('#tabs').innerHTML=TABS.map(t=>`<button class="${t[0]===tab?'on':''}" data-tab="${t[0]}">${t[1]}</button>`).join('');
+ if(tab==='orders')filt();
+}
+function filt(){
+ const s=$('#fs')?.value||'',q=($('#fq')?.value||'').trim().toLowerCase();
+ document.querySelectorAll('.oc').forEach(c=>c.hidden=(s&&c.dataset.s!==s)||(q&&!c.dataset.q.includes(q)));
+}
+const num=e=>Number(e.value)||0,lines=t=>t.split('\n').map(s=>s.trim()).filter(Boolean);
+const acts={
+ async saveOrder(b){
+  const c=b.closest('.oc'),o=ORD.find(x=>x.id===b.dataset.id),g=n=>c.querySelector(`[data-f=${n}]`).value,upd={rider:g('rider').trim(),payment:g('payment')};
+  if(g('status')!==o.status){upd.status=g('status');upd['times.'+g('status')]=serverTimestamp()}
+  try{await updateDoc(doc(db,'orders',o.id),upd);toast('Order updated.')}catch(e){console.error(e);toast('Could not update.')}
+ },
+ async restore(b){
+  const o=ORD.find(x=>x.id===b.dataset.id),w=writeBatch(db);
+  w.update(doc(db,'subscriptions',o.subId),{used:increment(-1)});w.update(doc(db,'orders',o.id),{creditRestored:true});
+  try{await w.commit();toast('Credit restored.')}catch(e){console.error(e);toast('Could not restore.')}
+ },
+ async activate(b){
+  const s=SUBS.find(x=>x.id===b.dataset.id),p=CFG.plans.find(x=>x.id===s.planId)||{},y=s.billing==='yearly',ref=b.parentElement.querySelector('[data-f=ref]').value.trim();
+  const days=y?365:(p.days||s.days||30);
+  try{await updateDoc(doc(db,'subscriptions',s.id),{status:'active',credits:p.credits?(y?p.credits*12:p.credits):s.credits,price:p.priceM!=null?(y?p.priceY:p.priceM):s.price,maxKm:p.maxKm??s.maxKm,maxKg:p.maxKg??s.maxKg,startAt:Timestamp.now(),expiresAt:Timestamp.fromMillis(Date.now()+days*864e5),paid:true,payRef:ref});toast('Subscription activated.')}catch(e){console.error(e);toast('Could not activate.')}
+ },
+ async cancelsub(b){if(!confirm('Cancel this subscription?'))return;try{await updateDoc(doc(db,'subscriptions',b.dataset.id),{status:'cancelled'});toast('Cancelled.')}catch(e){console.error(e);toast('Could not cancel.')}},
+ async saveCfg(){
+  const pricing={};document.querySelectorAll('[data-pr]').forEach(e=>pricing[e.dataset.pr]=num(e));
+  const plans=[...document.querySelectorAll('.planc')].map(c=>{const g=n=>c.querySelector(`[name=${n}]`),i=+c.dataset.i;return {id:CFG.plans[i].id,name:g('name').value.trim()||CFG.plans[i].name,credits:num(g('credits')),priceM:num(g('priceM')),priceY:num(g('priceY')),maxKm:num(g('maxKm')),maxKg:num(g('maxKg')),days:num(g('days'))||30,active:g('active').value==='1',features:lines(g('features').value)}});
+  const services=[...document.querySelectorAll('.svc')].map(c=>{const g=n=>c.querySelector(`[name=${n}]`),i=+c.dataset.i;return {id:CFG.services[i].id,name:g('name').value.trim()||CFG.services[i].name,desc:g('desc').value.trim(),items:lines(g('items').value),active:g('active').value==='1'}});
+  const payment={upi:$('#upi').value.trim(),note:$('#pnote').value.trim()},contact={phone:$('#cph').value.trim(),whatsapp:$('#cwa').value.trim(),email:$('#cem').value.trim()};
+  try{await setDoc(doc(db,'config','site'),{pricing,plans,services,payment,contact},{merge:true});toast('Saved. The customer website is updated.')}catch(e){console.error(e);toast('Could not save.')}
+ }
+};
+$('#view').addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(b)acts[b.dataset.act](b)});
+$('#view').addEventListener('input',e=>{if(e.target.id==='fq')filt()});
+$('#view').addEventListener('change',e=>{if(e.target.id==='fs')filt()});
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b){tab=b.dataset.tab;draw(true)}});
+$('#out').onclick=()=>signOut(auth);
+
+$('#gsw').onclick=e=>{e.preventDefault();signup=!signup;$('#gt').textContent=signup?'Create admin login':'Admin login';$('#gsw').textContent=signup?'Back to login':'Create an admin login'};
+$('#gf').addEventListener('submit',async e=>{
+ e.preventDefault();const d=Object.fromEntries(new FormData(e.target)),er=$('#ge');er.textContent='';
+ try{signup?await createUserWithEmailAndPassword(auth,d.email.trim(),d.pw):await signInWithEmailAndPassword(auth,d.email.trim(),d.pw)}
+ catch(x){er.textContent=({'auth/email-already-in-use':'This email already has an account. Log in instead.','auth/invalid-credential':'Incorrect email or password.','auth/operation-not-allowed':'Email/Password sign-in is not enabled in Firebase yet.'}[x.code])||'Could not sign in.'}
+});
+
+function show(id){['gate','denied','main'].forEach(x=>$('#'+x).hidden=x!==id)}
+onAuthStateChanged(auth,async u=>{
+ un.forEach(f=>f());un=[];$('#out').hidden=!u;$('#who').textContent=u?u.email:'';
+ if(!u){show('gate');return}
+ let ok=false;try{ok=(await getDoc(doc(db,'admins',u.uid))).exists()}catch(e){console.error(e)}
+ if(!ok){$('#denied').innerHTML=`<div class="card"><h2>Not an admin yet</h2><p>This account is not allowed to manage DropBees. To make it an admin, open Firebase console, then Firestore Database, create a collection named <b>admins</b>, and add a document whose Document ID is this UID:</p><p><code>${esc(u.uid)}</code></p><p class="muted">Add any field, for example role = admin. Then refresh this page.</p></div>`;show('denied');return}
+ show('main');
+ const er=e=>{console.error(e);toast('Could not load some data.')},listen=(c,set)=>un.push(onSnapshot(collection(db,c),s=>{set(s);draw()},er));
+ listen('orders',s=>ORD=s.docs.map(d=>({id:d.id,...d.data()})));
+ listen('secrets',s=>{SEC={};s.docs.forEach(d=>SEC[d.id]=d.data())});
+ listen('users',s=>USERS=s.docs.map(d=>({id:d.id,...d.data()})));
+ listen('subscriptions',s=>SUBS=s.docs.map(d=>({id:d.id,...d.data()})));
+ listen('leads',s=>LEADS=s.docs.map(d=>({id:d.id,...d.data()})));
+ un.push(onSnapshot(doc(db,'config','site'),s=>{if(s.exists())CFG=mergeCfg(s.data());if(tab!=='set')draw()},er));
+ draw(true);
+});
+</script>
+</body>
+</html>
